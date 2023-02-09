@@ -2,7 +2,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "../server/api/index";
+import axios from "../../server/api/index";
 
 const Login = () => {
   const onFinish = async (e) => {
@@ -20,9 +20,8 @@ const Login = () => {
     <div style={{ width: "100%", height: "100vh", backgroundColor: "#90CAF9" }}>
       <div
         style={{
-          maxWidth: 400,
-          minWidth:280,
-          height: 400,
+          width: "300px",
+          minWidth:"280px",
           margin: "0 auto",
           position: "absolute",
           top: "50%",
@@ -84,9 +83,15 @@ const Login = () => {
               placeholder="Password"
             />
           </Form.Item>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
             <Link to="/forgot-pass" className="login-form-forgot" href="">
               Forgot password
             </Link>
+
+            <Link to="/forgot-email" className="login-form-forgot" href="">
+              Forgot Email
+            </Link>
+            </div>
 
           <Form.Item>
             <Button

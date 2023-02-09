@@ -9,7 +9,9 @@ import NewPass from "./components/NewPass/NewPass";
 import Register from "./components/Register/Register";
 import Verify_forgot from "./components/Verify-forgotPS/Verify_forgot";
 import Verify from "./components/Verify/Verify";
-import LoginPage from "./Login/Login";
+import LoginPage from "./components/Login/Login";
+import UpdateEmail from "./components/UpdateEmail/UpdateEmail";
+import NewEmail from "./components/NewEmail/NewEmail";
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/newPass" element={<NewPass />} />
         <Route path="/forgot-pass" element={<ForgotPs />} />
         <Route path="/forgot-verify" element={<Verify_forgot />} />
+        <Route path="/forgot-email" element={<UpdateEmail />} />
+        <Route path="/newEmail" element={<NewEmail />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/verify" element={<Verify />} />
       </Routes>

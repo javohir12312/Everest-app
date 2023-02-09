@@ -21,7 +21,7 @@ const Register = () => {
 
   setTimeout(() => {
     setLoading(false);
-  },200);
+  }, 200);
 
   return (
     <div>
