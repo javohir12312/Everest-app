@@ -55,20 +55,6 @@ const Login = () => {
             />
           </Form.Item>
           <Form.Item
-            name="user_type"
-            rules={[
-              {
-                required: true,
-                message: "User or Admin!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="type user"
-            />
-          </Form.Item>
-          <Form.Item
             name="password"
             rules={[
               {
