@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/Admin/Admin";
-import AdminLogin from "./components/AdminLogin/AdminLogin";
 import Default from "./components/Default/Default";
 import ForgotPs from "./components/ForgotPS/ForgotPs";
 import Home from "./components/Home/Home";
@@ -21,7 +20,6 @@ const App = () => {
         <Route path="/default" element={<Default />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/newPass" element={<NewPass />} />
         <Route path="/forgot-pass" element={<ForgotPs />} />
         <Route path="/forgot-verify" element={<Verify_forgot />} />

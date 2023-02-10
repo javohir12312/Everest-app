@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import axios from "../../server/api/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const Register = () => {
   const [btnL, srtBtnL] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   const onFinish = async (e) => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/register", e);
-      window.location.assign("/verify");
+      navigate("/verify")
       srtBtnL(true);
     } catch (error) {
       console.log(error);

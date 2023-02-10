@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import axios from "../../server/api/index";
+import { useNavigate } from "react-router-dom";
 
 const UpdateEmail = () => {
+  const navigate = useNavigate()
   const onFinish = async (e) => {
     console.log(e);
     try {
@@ -10,7 +12,7 @@ const UpdateEmail = () => {
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
       console.log(resp.data.access_token);
       setTimeout(() => {
-        window.location.assign("/newEmail");
+      navigate("/newEmail")
       }, 500);
     } catch (error) {
       console.log(error);

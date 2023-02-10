@@ -1,8 +1,10 @@
 import { Button, Form, Input } from "antd";
 import axios from "../../server/api/index";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Verify_forgot = () => {
+  const navigate = useNavigate()
   const onFinish = async (e) => {
     console.log(e);
     try {
@@ -10,7 +12,7 @@ const Verify_forgot = () => {
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
       console.log(resp.data.access_token);
       setTimeout(() => {
-        window.location.assign("/newPass");
+      navigate("/newPass")
       }, 1000);
     } catch (error) {
       console.log(error);

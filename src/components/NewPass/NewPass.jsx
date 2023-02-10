@@ -1,15 +1,17 @@
 import { Button, Form, Input } from "antd";
 import axios from "../../server/api/index";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewPass = () => {
+  const navigate = useNavigate()
   const onFinish = async (e) => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/update-password", e);
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
       setTimeout(() => {
-        window.location.assign("/");
+      navigate("/")
       }, 1000);
     } catch (error) {
       console.log(error);
