@@ -37,8 +37,8 @@ const UpdateEmail = () => {
       >
         <h5 style={{ textAlign: "left", marginBottom: 20 }}>Forgot Email</h5>
 
-        <Form.Item name={"email"} label="email">
-          <Input placeholder="Sizning emailingiz" />
+        <Form.Item name="email" label="email">
+          <Input type="email" placeholder="Sizning emailingiz" />
         </Form.Item>
 
         <Button style={{ width: "100%" }} htmlType="submit" type="primary">

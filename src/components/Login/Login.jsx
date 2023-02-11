@@ -4,14 +4,15 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../server/api/index";
 import Alert1 from "../Alerts/AlertLogin/Alert";
-import "../Login/Login.scss"
+import "../Login/Login.scss";
 
+import Sound from "react-sound";
 const Login = () => {
   /////state alerts
   const [alert, setAlert] = useState(false);
 
   const navigate = useNavigate();
-
+  
   const onFinish = async (e) => {
     console.log(e);
     try {
@@ -24,7 +25,7 @@ const Login = () => {
       navigate("/default");
     } catch (error) {
       setAlert(true);
-      <audio src="../components/sound/sounds.mp3" autoplay></audio>;
+      <audio src="cool_sound.mp3" autoplay></audio>;
       setTimeout(() => {
         setAlert(false);
       }, 1000);
@@ -71,7 +72,8 @@ const Login = () => {
               },
             ]}
           >
-            <Input type="email"
+            <Input
+              type="email"
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Email"
             />
@@ -91,19 +93,13 @@ const Login = () => {
               placeholder="Password"
             />
           </Form.Item>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Link to="/forgot-pass" className="login-form-forgot" href="">
-              Forgot password
-            </Link>
-
-            <Link to="/forgot-email" className="login-form-forgot" href="">
-              Forgot Email
-            </Link>
-          </div>
+          <Link to="/forgot-pass" className="login-form-forgot" href="">
+            Forgot password
+          </Link>
 
           <Form.Item>
             <Button
-            style={{width:"100%"}}
+              style={{ width: "100%" }}
               type="primary"
               htmlType="submit"
               className="login-form-button"
