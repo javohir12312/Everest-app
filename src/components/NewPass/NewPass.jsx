@@ -4,14 +4,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const NewPass = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = async (e) => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/update-password", e);
-      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
       setTimeout(() => {
-      navigate("/")
+        navigate("/");
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -33,14 +32,17 @@ const NewPass = () => {
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
-
         onFinish={onFinish}
       >
         <Form.Item name="password" label="Parol">
           <Input placeholder="yangi parol" />
         </Form.Item>
 
-        <Button htmlType="submit" style={{ backgroundColor: "yellow" }} type="dashed">
+        <Button
+          htmlType="submit"
+          style={{ backgroundColor: "yellow" }}
+          type="dashed"
+        >
           Yangi kodni tasdiqlash
         </Button>
       </Form>

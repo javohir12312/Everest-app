@@ -6,26 +6,30 @@ import axios from "../../server/api/index";
 import Alert1 from "../Alerts/AlertLogin/Alert";
 import "../Login/Login.scss";
 
-import Sound from "react-sound";
 const Login = () => {
   /////state alerts
   const [alert, setAlert] = useState(false);
 
   const navigate = useNavigate();
-  
+
   const onFinish = async (e) => {
     console.log(e);
     try {
       const values = await axios.post("/auth/login", e);
+      if (values.data.user.type === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/default");
+      }
+      console.log(values);
       localStorage.setItem(
         "token",
         JSON.stringify(values.data.token_response.access_token)
       );
       console.log(values.data.token_response.access_token);
-      navigate("/default");
     } catch (error) {
       setAlert(true);
-      <audio src="cool_sound.mp3" autoplay></audio>;
+      console.log(error);
       setTimeout(() => {
         setAlert(false);
       }, 1000);
@@ -40,7 +44,7 @@ const Login = () => {
         position: "relative",
       }}
     >
-      {alert ? <Alert1 /> : console.log("yo")}
+      {alert ? <Alert1 /> : null}
       <div
         style={{
           width: "300px",
