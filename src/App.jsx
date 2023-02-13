@@ -17,39 +17,40 @@ import Add from "./components/AdminPanel/Add/Add";
 import Added from "./components/AdminPanel/Added/Added";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
+import About from "./components/About/About";
 
 const App = () => {
   const storage = window.localStorage;
   return (
-    <div>
-      <Routes>
-        <Route index path="/" element={<Home />} />
-        <Route path="/default" element={<Default />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/newPass" element={<NewPass />} />
-        <Route path="/forgot-pass" element={<ForgotPs />} />
-        <Route path="/forgot-verify" element={<Verify_forgot />} />
-        <Route path="/forgot-email" element={<UpdateEmail />} />
-        <Route path="/newEmail" element={<NewEmail />} />
-        <Route path="/admin" element={<Admin />}>
-          <Route path={JSON.parse(storage.getItem("fan"))} element={<Render />}>
-            <Route index element={<Add />} />
-            <Route path="added" element={<Added />} />
-          </Route>
-
-          <Route path="/admin" element={<Main />}>
-            <Route index element={<Add />} />
-            <Route path="added" element={<Added />} />
-          </Route>
-
-          <Route path="users" element={<Users />} />
-
-          <Route path="account" element={<Account />} />
+    <Routes>
+      <Route path="/" element={<Home />}>
+        <Route path="default" element={<Default />} />
+        <Route path="about" element={<About />} />
+      </Route>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/newPass" element={<NewPass />} />
+      <Route path="/forgot-pass" element={<ForgotPs />} />
+      <Route path="/forgot-verify" element={<Verify_forgot />} />
+      <Route path="/forgot-email" element={<UpdateEmail />} />
+      <Route path="/newEmail" element={<NewEmail />} />
+      <Route path="/admin" element={<Admin />}>
+        <Route path={JSON.parse(storage.getItem("fan"))} element={<Render />}>
+          <Route index element={<Add />} />
+          <Route path="added" element={<Added />} />
         </Route>
-        <Route path="/verify" element={<Verify />} />
-      </Routes>
-    </div>
+
+        <Route path="/admin" element={<Main />}>
+          <Route index element={<Add />} />
+          <Route path="added" element={<Added />} />
+        </Route>
+
+        <Route path="users" element={<Users />} />
+
+        <Route path="account" element={<Account />} />
+      </Route>
+      <Route path="/verify" element={<Verify />} />
+    </Routes>
   );
 };
 
