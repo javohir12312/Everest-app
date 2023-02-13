@@ -82,70 +82,82 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((el) => {
-              return (
-                <tr key={el.id} id={el.id}>
-                  <th style={{ fontSize: 17 }} scope="row">
-                    {el.id}
-                  </th>
-                  <td style={{ fontSize: 18 }}>{el.first_name}</td>
-                  <td style={{ fontSize: 18 }}>{el.last_name}</td>
-                  <td style={{ fontSize: 18 }}>
-                    <a
-                      style={{ color: "black", textDecoration: "underline" }}
-                      href={`tel:${el.phone_number}`}
-                    >
-                      {el.phone_number}
-                    </a>
-                  </td>
-                  <td style={{ fontSize: 18 }}>
-                    <a
-                      style={{ color: "black", textDecoration: "underline" }}
-                      href={`mailto:${el.email}`}
-                    >
-                      {el.email}
-                    </a>
-                  </td>
-                  <td style={{ fontSize: 18 }}>
-                    {dayjs(el.created_at).format("MMMM D, YYYY h:mm A")}
-                  </td>
-                  <td style={{ fontSize: 18 }}>
-                    <Button
-                      style={{ display: "flex", alignItems: "center" }}
-                      type="primary"
-                      onClick={(evt) => (
-                        showModal(),
-                        setDelId(evt.target.parentNode.parentNode.parentNode.id)
-                      )}
-                    >
-                      O'chirish <UserDeleteOutlined />
-                    </Button>
-                    <Modal
-                      title="O'chirish"
-                      open={isModalOpen}
-                      onOk={handleOk}
-                      onCancel={handleCancel}
-                      footer={null}
-                    >
-                      <p style={{ fontSize: 17 }}>
-                        Ushbu foydalanuvchini ro'yxatdan o'chirmoqchimisiz
-                      </p>
-                      <div
-                        style={{ display: "flex", justifyContent: "flex-end" }}
+              if (el.type === "admin") {
+                return null;
+              } else {
+                return (
+                  <tr key={el.id} id={el.id}>
+                    <th style={{ fontSize: 17 }} scope="row">
+                      {el.id}
+                    </th>
+                    <td style={{ fontSize: 18 }}>{el.first_name}</td>
+                    <td style={{ fontSize: 18 }}>{el.last_name}</td>
+                    <td style={{ fontSize: 18 }}>
+                      <a
+                        style={{ color: "black", textDecoration: "underline" }}
+                        href={`tel:${el.phone_number}`}
                       >
-                        <Button style={{ marginRight: 15 }} onClick={handleOk}>
-                          Bekor qilish
-                        </Button>
-                        <Button
-                          type="primary"
-                          onClick={() => (handleCancel(), onDelete(delId))}
+                        {el.phone_number}
+                      </a>
+                    </td>
+                    <td style={{ fontSize: 18 }}>
+                      <a
+                        style={{ color: "black", textDecoration: "underline" }}
+                        href={`mailto:${el.email}`}
+                      >
+                        {el.email}
+                      </a>
+                    </td>
+                    <td style={{ fontSize: 18 }}>
+                      {dayjs(el.created_at).format("MMMM D, YYYY h:mm A")}
+                    </td>
+                    <td style={{ fontSize: 18 }}>
+                      <Button
+                        style={{ display: "flex", alignItems: "center" }}
+                        type="primary"
+                        onClick={(evt) => (
+                          showModal(),
+                          setDelId(
+                            evt.target.parentNode.parentNode.parentNode.id
+                          )
+                        )}
+                      >
+                        O'chirish <UserDeleteOutlined />
+                      </Button>
+                      <Modal
+                        title="O'chirish"
+                        open={isModalOpen}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        footer={null}
+                      >
+                        <p style={{ fontSize: 17 }}>
+                          Ushbu foydalanuvchini ro'yxatdan o'chirmoqchimisiz
+                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
                         >
-                          O'chirish
-                        </Button>
-                      </div>
-                    </Modal>
-                  </td>
-                </tr>
-              );
+                          <Button
+                            style={{ marginRight: 15 }}
+                            onClick={handleOk}
+                          >
+                            Bekor qilish
+                          </Button>
+                          <Button
+                            type="primary"
+                            onClick={() => (handleCancel(), onDelete(delId))}
+                          >
+                            O'chirish
+                          </Button>
+                        </div>
+                      </Modal>
+                    </td>
+                  </tr>
+                );
+              }
             })}
           </tbody>
         </table>

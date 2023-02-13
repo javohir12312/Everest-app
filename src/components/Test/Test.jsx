@@ -5,7 +5,7 @@ const Test = () => {
     if (localStorage.getItem("token")) {
       return null;
     } else {
-      window.location.href = "/register ";
+      window.location = "/login";
     }
   }
   loc();

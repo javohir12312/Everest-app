@@ -7,13 +7,11 @@ import Alert1 from "../Alerts/AlertFP/Alert";
 const ForgotPs = () => {
   const [alert, setAlert] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = async (e) => {
-    console.log(e);
     try {
-      const values = await axios.post("/auth/forgot-password", e);
-      navigate("/forgot-verify")
-      console.log(values);
+      await axios.post("/auth/forgot-password", e);
+      navigate("/forgot-verify");
     } catch (error) {
       setAlert(true);
       <audio src="../components/sound/sounds.mp3" autoplay></audio>;
@@ -25,7 +23,7 @@ const ForgotPs = () => {
 
   return (
     <div style={{ width: "100%", height: "100vh", backgroundColor: "#90CAF9" }}>
-      {alert ? <Alert1/> : console.log("yo")}
+      {alert ? <Alert1 /> : console.log("yo")}
       <Form
         onFinish={onFinish}
         style={{

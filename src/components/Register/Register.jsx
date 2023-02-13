@@ -7,13 +7,12 @@ import Loader from "../Loader/Loader";
 const Register = () => {
   const [btnL, srtBtnL] = useState(false);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onFinish = async (e) => {
-    console.log(e);
     try {
-      const resp = await axios.post("/auth/register", e);
-      navigate("/verify")
+      await axios.post("/auth/register", e);
+      navigate("/verify");
       srtBtnL(true);
     } catch (error) {
       console.log(error);

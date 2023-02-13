@@ -4,15 +4,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = async (e) => {
-    console.log(e);
     try {
       const resp = await axios.post("/auth/verify", e);
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
       setTimeout(() => {
-      navigate("/default")
-      },1000)
+        navigate("/test");
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +42,7 @@ const Verify = () => {
           <Input type="email" placeholder="Your Email" />
         </Form.Item>
 
-        <Button style={{width:"100%"}} htmlType="submit" type="primary">
+        <Button style={{ width: "100%" }} htmlType="submit" type="primary">
           Tasdiqlash
         </Button>
       </Form>
