@@ -82,7 +82,9 @@ const Admin = () => {
                   margin: "20px 16px 12px",
                 }}
               >
-                <h2 style={{margin: 0, fontSize: 20, color: "white",}}>Boshqaruv Bo'limi</h2>
+                <h2 style={{ margin: 0, fontSize: 20, color: "white" }}>
+                  Boshqaruv Bo'limi
+                </h2>
               </div>
 
               <div>

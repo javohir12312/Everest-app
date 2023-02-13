@@ -13,15 +13,13 @@ import UpdateEmail from "./components/UpdateEmail/UpdateEmail";
 import NewEmail from "./components/NewEmail/NewEmail";
 import Account from "./components/AdminPanel/Account/Account";
 import Main from "./components/AdminPanel/Main/Main";
-import Change from "./components/AdminPanel/Change/Change";
-import Personal from "./components/AdminPanel/Personal/Personal";
 import Add from "./components/AdminPanel/Add/Add";
 import Added from "./components/AdminPanel/Added/Added";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
 
 const App = () => {
-  const storage = window.localStorage
+  const storage = window.localStorage;
   return (
     <div>
       <Routes>
@@ -35,7 +33,6 @@ const App = () => {
         <Route path="/forgot-email" element={<UpdateEmail />} />
         <Route path="/newEmail" element={<NewEmail />} />
         <Route path="/admin" element={<Admin />}>
-          
           <Route path={JSON.parse(storage.getItem("fan"))} element={<Render />}>
             <Route index element={<Add />} />
             <Route path="added" element={<Added />} />
@@ -48,11 +45,7 @@ const App = () => {
 
           <Route path="users" element={<Users />} />
 
-          <Route path="account" element={<Account />}>
-            <Route index element={<Personal />} />
-            <Route path="change" element={<Change />} />
-          </Route>
-
+          <Route path="account" element={<Account />} />
         </Route>
         <Route path="/verify" element={<Verify />} />
       </Routes>

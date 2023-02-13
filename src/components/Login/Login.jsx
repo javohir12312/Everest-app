@@ -1,4 +1,4 @@
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ const Login = () => {
       const values = await axios.post("/auth/login", e);
       if (values.data.user.type === "admin") {
         navigate("/admin");
+        localStorage.setItem("id", values.data.user.id)
       } else {
         navigate("/default");
       }
