@@ -1,6 +1,6 @@
 import React from "react";
 
-const Default = () => {
+const Test = () => {
   function loc() {
     if (localStorage.getItem("token")) {
       return null;
@@ -9,7 +9,7 @@ const Default = () => {
     }
   }
   loc();
-  return <div>Default</div>;
+  return <div>Test</div>;
 };
 
-export default Default;
+export default Test;
