@@ -9,7 +9,7 @@ const Verify = () => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/verify", e);
-      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
+      localStorage.setItem("token", JSON.stringify(resp.data.refresh_token));
       setTimeout(() => {
       navigate("/default")
       },1000)

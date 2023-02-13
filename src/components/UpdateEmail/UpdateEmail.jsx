@@ -4,13 +4,17 @@ import axios from "../../server/api/index";
 import { useNavigate } from "react-router-dom";
 
 const UpdateEmail = () => {
+
+
   const navigate = useNavigate()
+
+
   const onFinish = async (e) => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/update-email", e);
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
-      console.log(resp.data.access_token);
+      console.log(resp.data.refresh_token);
       setTimeout(() => {
       navigate("/newEmail")
       }, 500);
