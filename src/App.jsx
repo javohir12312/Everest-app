@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/AdminPanel/Admin/Admin";
-import Default from "./components/Default/Default";
+import Test from "./components/Test/Test";
 import ForgotPs from "./components/ForgotPS/ForgotPs";
 import Home from "./components/Home/Home";
 import NewPass from "./components/NewPass/NewPass";
@@ -17,15 +17,13 @@ import Add from "./components/AdminPanel/Add/Add";
 import Added from "./components/AdminPanel/Added/Added";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
-import About from "./components/About/About";
 
 const App = () => {
   const storage = window.localStorage;
   return (
     <Routes>
       <Route path="/" element={<Home />}>
-        <Route path="default" element={<Default />} />
-        <Route path="about" element={<About />} />
+        <Route path="test" element={<Test />} />
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<LoginPage />} />
