@@ -17,13 +17,17 @@ import Add from "./components/AdminPanel/Add/Add";
 import Added from "./components/AdminPanel/Added/Added";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
+import Default from "./components/Default/Default";
+import Teacher from "./components/Teacher/Teacher";
 
 const App = () => {
   const storage = window.localStorage;
   return (
     <Routes>
       <Route path="/" element={<Home />}>
+        <Route index element={<Default />} />
         <Route path="test" element={<Test />} />
+        <Route path="teacher" element={<Teacher />} />
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<LoginPage />} />

@@ -1,23 +1,29 @@
 header {
   padding-inline: 40px;
-  background-color: #001529;
+  background-color: #28156E;
 }
 main {
-  padding-inline: 40px;
+  padding: 20px;
+}
+footer {
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  background-color: #28156E;
 }
 .site-layout-content {
   height: 100%;
   min-height: 280px;
   padding: 24px;
 }
-#components-layout-demo-top .logo {
+#components-layout-demo-top {
   float: left;
   width: 120px;
   height: 31px;
   margin: 16px 24px 16px 0;
   background: rgba(255, 255, 255, 0.3);
 }
-.ant-row-rtl #components-layout-demo-top .logo {
+.ant-row-rtl #components-layout-demo-top {
   float: right;
   margin: 16px 0 16px 24px;
 }
@@ -31,6 +37,25 @@ main {
   border-radius: 100px;
   text-align: center;
   display: block;
+  &:hover {
+    color: #DD2020;
+  }
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.logo {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  &:hover {
+    color: #DD2020;
+  }
+  &:active {
+    opacity: 0.7;
+  }
 }
 
 @media only screen and (max-width: 600px) {

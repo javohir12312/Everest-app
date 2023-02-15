@@ -113,8 +113,7 @@ const Users = () => {
                     </td>
                     <td style={{ fontSize: 18 }}>
                       <Button
-                        style={{ display: "flex", alignItems: "center" }}
-                        type="primary"
+                        style={{ display: "flex", alignItems: "center", backgroundColor: "#28156E", color: "white" }}
                         onClick={(evt) => (
                           showModal(),
                           setDelId(
@@ -147,7 +146,7 @@ const Users = () => {
                             Bekor qilish
                           </Button>
                           <Button
-                            type="primary"
+                            style={{backgroundColor: "#28156E", color: "white"}}
                             onClick={() => (handleCancel(), onDelete(delId))}
                           >
                             O'chirish
