@@ -18,7 +18,6 @@ const Home = () => {
             <div>
               <Link
                 className="logo"
-                // style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
                 to={""}
               >
                 Blocktest
