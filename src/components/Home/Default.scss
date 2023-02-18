@@ -25,7 +25,7 @@ main {
   color: white;
   font-size: 18px;
   line-height: 40px;
-    padding: 2px 20px;
+  padding: 2px 20px;
   font-weight: bold;
   border: 2px solid;
   border-radius: 100px;
@@ -34,7 +34,8 @@ main {
 }
 
 @media only screen and (max-width: 600px) {
-  header, main {
+  header,
+  main {
     padding-inline: 20px;
   }
   .testButton {

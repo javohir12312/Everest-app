@@ -4,26 +4,20 @@ import axios from "../../server/api/index";
 import { useNavigate } from "react-router-dom";
 
 const UpdateEmail = () => {
-
-
-  const navigate = useNavigate()
-
-
+  const navigate = useNavigate();
   const onFinish = async (e) => {
-    console.log(e);
     try {
       const resp = await axios.post("/auth/update-email", e);
       localStorage.setItem("token", JSON.stringify(resp.data.access_token));
-      console.log(resp.data.refresh_token);
       setTimeout(() => {
-      navigate("/newEmail")
+        navigate("/newEmail");
       }, 500);
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div style={{width:"100%", height:"100vh", background:"#90CAF9"}}>
+    <div style={{ width: "100%", height: "100vh", background: "#90CAF9" }}>
       <Form
         onFinish={onFinish}
         style={{

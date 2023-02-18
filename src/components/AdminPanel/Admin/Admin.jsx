@@ -5,7 +5,7 @@ import {
   EditOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme, Button, Modal, Input } from "antd";
+import { Layout, Menu, Button, Modal, Input } from "antd";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
@@ -21,7 +21,6 @@ function getItem(label, key, icon, children) {
 
 const Admin = () => {
   const storage = window.localStorage;
-
   const [modal, setModal] = useState([]);
 
   const items = [
@@ -56,12 +55,6 @@ const Admin = () => {
     setModal([]);
   };
 
-  const [collapsed, setCollapsed] = useState(false);
-
-  const {
-    token: {},
-  } = theme.useToken();
-
   return (
     <div>
       {localStorage.getItem("token") ? (
@@ -71,11 +64,7 @@ const Admin = () => {
               minHeight: "100vh",
             }}
           >
-            <Sider
-              collapsible
-              collapsed={collapsed}
-              onCollapse={(value) => setCollapsed(value)}
-            >
+            <Sider>
               <div
                 style={{
                   height: 32,
@@ -151,47 +140,3 @@ const Admin = () => {
   );
 };
 export default Admin;
-
-// import { DownOutlined } from '@ant-design/icons';
-// import { Dropdown, Space } from 'antd';
-// const items = [
-//   {
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         1st menu item
-//       </a>
-//     ),
-//     key: '0',
-//   },
-//   {
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-//         2nd menu item
-//       </a>
-//     ),
-//     key: '1',
-//   },
-//   {
-//     type: 'divider',
-//   },
-//   {
-//     label: '3rd menu item（disabled）',
-//     key: '3',
-//     disabled: true,
-//   },
-// ];
-// const Admin = () => (
-//   <Dropdown
-//     menu={{
-//       items,
-//     }}
-//   >
-//     <a onClick={(e) => e.preventDefault()}>
-//       <Space>
-//         Hover me
-//         <DownOutlined />
-//       </Space>
-//     </a>
-//   </Dropdown>
-// );
-// export default Admin;

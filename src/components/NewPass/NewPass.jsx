@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 const NewPass = () => {
   const navigate = useNavigate();
   const onFinish = async (e) => {
-    console.log(e);
     try {
-      const resp = await axios.post("/auth/update-password", e);
+      await axios.post("/auth/update-password", e);
       setTimeout(() => {
         navigate("/");
       }, 1000);

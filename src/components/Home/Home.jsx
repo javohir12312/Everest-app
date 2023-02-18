@@ -2,7 +2,7 @@ import { Layout, Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import "../Home/Default.scss";
 
-const { Header, Content, Footer } = Layout;
+const { Footer } = Layout;
 
 const Home = () => {
   return (

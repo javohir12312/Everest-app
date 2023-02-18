@@ -10,7 +10,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onFinish = async (e) => {
-    console.log(e);
     try {
       const resp = await axios.post("/auth/register", e);
       navigate("/verify");

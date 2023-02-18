@@ -3,8 +3,8 @@ import axios from "../../server/api/index";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Verify_forgot = () => {
-  const navigate = useNavigate()
+const VerifyForgot = () => {
+  const navigate = useNavigate();
   const onFinish = async (e) => {
     console.log(e);
     try {
@@ -12,7 +12,7 @@ const Verify_forgot = () => {
       localStorage.setItem("token", JSON.stringify(resp.data.refresh_token));
       console.log(resp.data.access_token);
       setTimeout(() => {
-      navigate("/newPass")
+        navigate("/newPass");
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ const Verify_forgot = () => {
           <Input type="email" placeholder="Your Email" />
         </Form.Item>
 
-        <Button style={{width:"100%"}} htmlType="submit" type="primary">
+        <Button style={{ width: "100%" }} htmlType="submit" type="primary">
           Tasdiqlash
         </Button>
       </Form>
@@ -51,4 +51,4 @@ const Verify_forgot = () => {
   );
 };
 
-export default Verify_forgot;
+export default VerifyForgot;
