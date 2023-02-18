@@ -1,14 +1,12 @@
-import { Layout, Menu } from "antd";
+import { Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
-import "../Home/Default.scss";
-
-const { Footer } = Layout;
+import "./Home.scss";
 
 const Home = () => {
   return (
-    <Layout className="layout">
+    <>
       <header style={{ height: "auto", paddingTop: 20, paddingBottom: 20 }}>
-        <Menu theme="dark" mode="horizontal">
+        <Menu theme="transparent" mode="horizontal">
           <div
             style={{
               width: "100%",
@@ -19,7 +17,8 @@ const Home = () => {
           >
             <div>
               <Link
-                style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                className="logo"
+                // style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
                 to={""}
               >
                 Blocktest
@@ -39,25 +38,12 @@ const Home = () => {
         </Menu>
       </header>
       <main>
-        <div
-          className="site-layout-content"
-          style={{
-            marginTop: 45,
-            backgroundColor: "white",
-            borderRadius: 15,
-          }}
-        >
           <Outlet></Outlet>
-        </div>
       </main>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
+      <footer>
         Micromania
-      </Footer>
-    </Layout>
+      </footer>
+    </>
   );
 };
 

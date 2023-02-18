@@ -64,7 +64,7 @@ const Admin = () => {
               minHeight: "100vh",
             }}
           >
-            <Sider>
+            <Sider style={{backgroundColor: "#28156E"}}>
               <div
                 style={{
                   height: 32,
@@ -110,6 +110,7 @@ const Admin = () => {
 
               <Menu
                 theme="dark"
+                style={{backgroundColor: "#28156E"}}
                 defaultSelectedKeys={["1"]}
                 mode="inline"
                 items={items}
