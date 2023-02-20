@@ -13,6 +13,10 @@ const Register = () => {
     try {
       const resp = await axios.post("/auth/register", e);
       navigate("/verify");
+      localStorage.setItem(
+        "token",
+        JSON.stringify(resp.data.token_response.access_token)
+      );
       srtBtnL(true);
     } catch (error) {
       console.log(error);
@@ -75,10 +79,7 @@ const Register = () => {
                   { required: true, message: "Iltimos Parolingizni kiriting" },
                 ]}
               >
-                <Input.Password
-                  pattern={/^(?=.*[A-Z])(?=.*\d)[A-Z\d]{2,}$/}
-                  placeholder="kodingizda katta harf va son bo'lishi kerak"
-                />
+                <Input.Password placeholder="kodingizda katta harf va son bo'lishi kerak" />
               </Form.Item>
 
               <Form.Item

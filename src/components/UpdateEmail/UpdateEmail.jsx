@@ -8,7 +8,10 @@ const UpdateEmail = () => {
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/update-email", e);
-      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
+      localStorage.setItem(
+        "token",
+        JSON.stringify(resp.data.token_response.access_token)
+      );
       setTimeout(() => {
         navigate("/newEmail");
       }, 500);

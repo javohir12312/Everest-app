@@ -9,7 +9,10 @@ const VerifyForgot = () => {
     console.log(e);
     try {
       const resp = await axios.post("/auth/verify-forgot-password", e);
-      localStorage.setItem("token", JSON.stringify(resp.data.refresh_token));
+      localStorage.setItem(
+        "token",
+        JSON.stringify(resp.data.token_response.access_token)
+      );
       console.log(resp.data.access_token);
       setTimeout(() => {
         navigate("/newPass");

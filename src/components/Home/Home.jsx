@@ -1,6 +1,7 @@
 import { Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import "./Home.scss";
+// import logo from "../image/"
 
 const Home = () => {
   return (
@@ -20,7 +21,7 @@ const Home = () => {
                 className="logo"
                 to={""}
               >
-                Blocktest
+                {/* <img src={logo} alt="" /> */}
               </Link>
             </div>
             <ul style={{ display: "flex", alignItems: "center", gap: 40 }}>
