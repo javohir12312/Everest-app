@@ -1,57 +1,219 @@
+import { Button, Form, InputNumber, Select, Empty } from "antd";
 import React from "react";
-import { PlusOutlined, CheckOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
-import { Link, Outlet } from "react-router-dom";
-
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
-}
+import { useState } from "react";
+import axios from "../../../server/api/index";
 
 const Main = () => {
-  const items = [
-    getItem(<Link to={""}>Savol qo'shish</Link>, "1", <PlusOutlined />),
-    getItem(
-      <Link to={"added"}>Qo'shilgan savollar</Link>,
-      "2",
-      <CheckOutlined />
-    ),
-    ,
-  ];
+  const [options, setOptions] = useState([]);
+  const [evt, setEvent] = useState([]);
+  const [form] = Form.useForm();
+  const onSubmit = async (evt) => {
+    setEvent(evt);
+    try {
+      const { data } = await axios.get(
+        `/tests?category_id=${evt.category_id}&difficulty=${evt.difficulty}&lang=${evt.lang}`
+      );
+      setOptions(data.tests);
+    } catch (error) {
+      console.log(error);
+    }
+    form.resetFields();
+  };
+
+  const onCancel = () => {
+    form.resetFields();
+  };
 
   return (
     <>
-      <h2 style={{marginTop: 0,}}>ASOSIY</h2>
+      <h2 style={{ marginTop: 0 }}>ASOSIY</h2>
       <div
         style={{
           display: "flex",
+          height: "100%",
         }}
       >
-        <Menu
-          style={{
-            width: 250,
-            borderRadius: "10px",
-          }}
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          mode="inline"
-          items={items}
-        />
         <div
           style={{
-            width: 1100,
-            marginLeft: "40px",
+            width: "100%",
+            height: "100%",
             padding: "20px",
             backgroundColor: "white",
             borderRadius: "10px",
           }}
         >
-          <Outlet></Outlet>
+          <h3 style={{ marginTop: 0, fontSize: 22 }}>Qo'shilgan savollar</h3>
+          <Form
+            style={{
+              marginBottom: 20,
+              paddingBottom: 20,
+              borderBottom: "2px solid #333",
+            }}
+            form={form}
+            onFinish={(evt) => onSubmit(evt)}
+          >
+            <Form.Item
+              label={"Bo'lim Id raqamini kiriting"}
+              name={"category_id"}
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos bo'lim Id raqamini kiriting",
+                },
+              ]}
+            >
+              <InputNumber
+                style={{ width: "100%" }}
+                placeholder="Bo'lim id raqamini kiriting"
+              />
+            </Form.Item>
+            <Form.Item
+              label={"Qiyinchilik darajasini tanlang"}
+              name={"difficulty"}
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos qiyinchilik darajasini tanlang",
+                },
+              ]}
+            >
+              <Select placeholder={"Qiyinchilik darajasini tanlang"}>
+                <Select.Option value="medium">O'rta</Select.Option>
+                <Select.Option value="hard">Qiyin</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label={"Tilni tanlang"}
+              name={"lang"}
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos tilni tanlang",
+                },
+              ]}
+            >
+              <Select placeholder={"Tilni tanlang"}>
+                <Select.Option value="uz">UZB</Select.Option>
+                <Select.Option value="ru">RUS</Select.Option>
+              </Select>
+            </Form.Item>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 15,
+              }}
+            >
+              <Button onClick={onCancel}>Bekor qilish</Button>
+              <Button
+                style={{ backgroundColor: "#28156E", color: "white" }}
+                htmlType="submit"
+              >
+                Savollarni ko'rish
+              </Button>
+            </div>
+          </Form>
+          <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 15,
+                marginBottom: 10,
+              }}
+            >
+              <div>
+                Bo'lim id raqami: <strong>{evt.category_id}</strong>
+              </div>
+              <div>
+                Qiyinchilik darajasi: <strong>{evt.difficulty}</strong>
+              </div>
+              <div>
+                Til turi: <strong>{evt.lang}</strong>
+              </div>
+            </div>
+            <ul
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: 0,
+                padding: 0,
+                listStyle: "none",
+              }}
+            >
+              <li style={{ width: "7%", fontSize: 22 }}>
+                <strong>ID</strong>
+              </li>
+              <li style={{ width: "19%", fontSize: 22 }}>
+                <strong>Savol</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>Rasm</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>Javob 1</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>Javob 2</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>Javob 3</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>Javob 4</strong>
+              </li>
+              <li style={{ width: "12%", fontSize: 22 }}>
+                <strong>To'g'ri javob</strong>
+              </li>
+            </ul>
+            <div>
+              {options.length === 0 ? (
+                <div style={{ marginTop: 80 }}>
+                  <Empty />
+                </div>
+              ) : (
+                options.map((el) => {
+                  return (
+                    <ul
+                      key={el.id}
+                      id={el.id}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        margin: 0,
+                        padding: "12px 0",
+                        listStyle: "none",
+                        borderBottom: "1px solid",
+                      }}
+                    >
+                      <li style={{ width: "7%", fontSize: 17 }}>
+                        <strong>{el.id}</strong>
+                      </li>
+                      <li style={{ width: "19%", fontSize: 18 }}>
+                        {el.question}
+                      </li>
+                      <li style={{ width: "12%", fontSize: 18 }}>
+                        {el.question_image_url === true
+                          ? el.question_image_url
+                          : "Rasim yo'q"}
+                      </li>
+                      {el.options.map((el) => {
+                        return (
+                          <li style={{ width: "12%", fontSize: 18 }}>
+                            {el.title}
+                          </li>
+                        );
+                      })}
+                      <li style={{ width: "12%", fontSize: 18 }}>
+                        {el.answer_option}
+                      </li>
+                    </ul>
+                  );
+                })
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
