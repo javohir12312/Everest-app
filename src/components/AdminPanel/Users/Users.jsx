@@ -22,7 +22,7 @@ const Users = () => {
 
   const onDelete = async (id) => {
     try {
-      await axios.delete(`/user/${id}`);
+      await axios.delete(`/users/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +113,12 @@ const Users = () => {
                     </td>
                     <td style={{ fontSize: 18 }}>
                       <Button
-                        style={{ display: "flex", alignItems: "center", backgroundColor: "#28156E", color: "white" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#28156E",
+                          color: "white",
+                        }}
                         onClick={(evt) => (
                           showModal(),
                           setDelId(
@@ -146,7 +151,10 @@ const Users = () => {
                             Bekor qilish
                           </Button>
                           <Button
-                            style={{backgroundColor: "#28156E", color: "white"}}
+                            style={{
+                              backgroundColor: "#28156E",
+                              color: "white",
+                            }}
                             onClick={() => (handleCancel(), onDelete(delId))}
                           >
                             O'chirish

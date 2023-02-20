@@ -2,41 +2,31 @@ import {
   DiffOutlined,
   UserOutlined,
   PlusCircleOutlined,
-  EditOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, Modal, Input } from "antd";
-import { useState } from "react";
+import { Layout, Button, Modal, Input, Form, message } from "antd";
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import axios from "../../../server/api/index";
+import "./Admin.scss";
 
 const { Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
 
 const Admin = () => {
-  const storage = window.localStorage;
-  const [modal, setModal] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [form] = Form.useForm();
 
-  const items = [
-    getItem(<Link to={""}>ASOSIY</Link>, "1", <DiffOutlined />),
-    JSON.parse(storage.getItem("fan"))
-      ? getItem(
-          <Link to={JSON.parse(storage.getItem("fan"))}>
-            {JSON.parse(storage.getItem("fan")).toUpperCase()}
-          </Link>,
-          "2",
-          <EditOutlined />
-        )
-      : "",
-    getItem(<Link to={"users"}>FOYDALANUVCHILAR</Link>, "8", <TeamOutlined />),
-    getItem(<Link to={"account"}>MENING HISOBIM</Link>, "9", <UserOutlined />),
-  ];
+  useEffect(() => {
+    const onFunction = async () => {
+      try {
+        const resp = await axios.get("/categories");
+        setCategories(resp.data.categories);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    onFunction();
+  }, [categories]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,17 +36,43 @@ const Admin = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    storage.setItem("fan", JSON.stringify(modal.toLowerCase()));
-    setModal([]);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setModal([]);
+  };
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Muvaffaqiyatli qo'shildi",
+    });
+  };
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "Qandaydir xatolik yuz berdi iltimos qayta urinib ko'ring",
+    });
+  };
+
+  const onSubmit = async (evt) => {
+    try {
+      const resp = await axios.post("/categories", evt);
+      if (resp.status === 201) {
+        success();
+      } else {
+        error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    form.resetFields();
   };
 
   return (
     <div>
+      {contextHolder}
       {localStorage.getItem("token") ? (
         <>
           <Layout
@@ -64,7 +80,7 @@ const Admin = () => {
               minHeight: "100vh",
             }}
           >
-            <Sider style={{backgroundColor: "#28156E"}}>
+            <Sider style={{ backgroundColor: "#28156E" }}>
               <div
                 style={{
                   height: 32,
@@ -99,22 +115,72 @@ const Admin = () => {
                   open={isModalOpen}
                   onOk={handleOk}
                   onCancel={handleCancel}
+                  footer={null}
                 >
-                  <Input
-                    placeholder="Fan nomini kiritig"
-                    value={modal}
-                    onChange={(evt) => setModal(evt.target.value)}
-                  />
+                  <Form onFinish={(evt) => onSubmit(evt)}>
+                    <Form.Item
+                      label={"Yo'nalish"}
+                      name={"title"}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Iltimos yo'nalishni kiriting",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Fan nomini kiritig" />
+                    </Form.Item>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        marginTop: 20,
+                      }}
+                    >
+                      <Button
+                        style={{ marginRight: 15 }}
+                        onClick={handleCancel}
+                      >
+                        Bekor qilish
+                      </Button>
+                      <Button
+                        style={{ backgroundColor: "#28156E", color: "white" }}
+                        htmlType="submit"
+                        onClick={handleOk}
+                      >
+                        Qo'shish
+                      </Button>
+                    </div>
+                  </Form>
                 </Modal>
               </div>
 
-              <Menu
-                theme="dark"
-                style={{backgroundColor: "#28156E"}}
-                defaultSelectedKeys={["1"]}
-                mode="inline"
-                items={items}
-              />
+              <ul className="categoryRender">
+                <li>
+                  <Link to={""}>
+                    ASOSIY <DiffOutlined />
+                  </Link>
+                </li>
+                {categories.map((el) => {
+                  return (
+                    <li key={el.id}>
+                      <Link className="categorieLink" to={el.title}>
+                        {el.title.toUpperCase()} <span>{el.id}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li>
+                  <Link to={"users"}>
+                    FOYDALANUVCHILAR <TeamOutlined />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"account"}>
+                    MENING HISOBIM <UserOutlined />
+                  </Link>
+                </li>
+              </ul>
             </Sider>
             <Layout className="site-layout">
               <Content

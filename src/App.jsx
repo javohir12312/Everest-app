@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/AdminPanel/Admin/Admin";
 import Test from "./components/Test/Test";
@@ -13,15 +13,27 @@ import UpdateEmail from "./components/UpdateEmail/UpdateEmail";
 import NewEmail from "./components/NewEmail/NewEmail";
 import Account from "./components/AdminPanel/Account/Account";
 import Main from "./components/AdminPanel/Main/Main";
-import Add from "./components/AdminPanel/Add/Add";
-import Added from "./components/AdminPanel/Added/Added";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
 import Default from "./components/Default/Default";
 import Teacher from "./components/Teacher/Teacher";
+import axios from "./server/api/index";
 
 const App = () => {
-  const storage = window.localStorage;
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const onFunction = async () => {
+      try {
+        const resp = await axios.get("/categories");
+        setCategories(resp.data.categories);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    onFunction();
+  }, [categories]);
+
   return (
     <Routes>
       <Route path="/" element={<Home />}>
@@ -37,14 +49,16 @@ const App = () => {
       <Route path="/forgot-email" element={<UpdateEmail />} />
       <Route path="/newEmail" element={<NewEmail />} />
       <Route path="/admin" element={<Admin />}>
-        <Route path={JSON.parse(storage.getItem("fan"))} element={<Render />}>
-          <Route index element={<Add />} />
-          <Route path="added" element={<Added />} />
-        </Route>
-        <Route path="/admin" element={<Main />}>
-          <Route index element={<Add />} />
-          <Route path="added" element={<Added />} />
-        </Route>
+        <Route index element={<Main />} />
+        {categories.map((el) => {
+          return (
+            <Route
+              path={el.title}
+              key={el.id}
+              element={<Render elTitle={el.title} />}
+            />
+          );
+        })}
         <Route path="users" element={<Users />} />
         <Route path="account" element={<Account />} />
       </Route>
