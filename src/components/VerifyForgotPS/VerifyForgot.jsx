@@ -11,7 +11,7 @@ const VerifyForgot = () => {
       const resp = await axios.post("/auth/verify-forgot-password", e);
       localStorage.setItem(
         "token",
-        JSON.stringify(resp.data.token_response.access_token)
+        JSON.stringify(resp.data.access_token)
       );
       console.log(resp.data.access_token);
       setTimeout(() => {

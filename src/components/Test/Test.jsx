@@ -6,7 +6,6 @@ import { useState } from "react";
 const Test = () => {
   const [data, setData] = useState([]);
   const [test, setTest] = useState([]);
-  const [answer, setAnswer] = useState();
 
   function loc() {
     if (localStorage.getItem("token")) {
@@ -22,41 +21,48 @@ const Test = () => {
       try {
         const rest = await axios.get("/categories");
         setData(rest.data.categories);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
-
-    const getTest = async () => {
-      const rest = await axios.get(
-        "/tests?category_id=1&difficulty=hard&lang=uz"
-      );
-      setTest(rest.data.tests);
-      console.log(rest);
-    };
-
-    getTest();
-
     getData();
   }, []);
 
-  function getAnswers() {
-    console.log(answer);
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        console.log();
-        console.log("xa");
-      }
-    }, 2000);
+  useEffect(() => {
+    const getTest = async () => {
+      const rest = await axios.get(
+        `/tests?category_id=2&difficulty=medium&lang=uz`
+      );
+      setTest(rest.data.tests);
+    };
+
+    getTest();
+  }, []);
+
+  async function Finish(e) {
+    const values = [];
+    for (let i = 0; i < test.length; i++) {
+      const data1 = {
+        chosen_option: e[test[i].id] === undefined ? "" : e[test[i].id],
+        test_id: test[i].id,
+      };
+      console.log(data1);
+      values.push(data1);
+    }
+    const obj = {
+      tests: values,
+    };
+    console.log(obj);
+    try {
+      const rest = await axios.post(
+        "/tests/check-answers",
+        JSON.stringify(obj)
+      );
+      console.log(rest);
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-  const handleChange = () => {
-    getAnswers();
-  };
-
-  function Finish(e) {
-    setAnswer(e);
-  }
-
-  console.log(test);
   return (
     <div>
       <div>
@@ -83,36 +89,43 @@ const Test = () => {
         </Select>
       </div>
 
-      <Form onFinish={Finish}>
-        {test.map((item, index) => {
+      <Form
+        style={{
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        onFinish={Finish}
+      >
+        {test.map((item) => {
           return (
             <>
-              <h2>{item.id}</h2>
+              <h2>{item.question}</h2>
               {item.options.map((item2) => {
                 return (
                   <Form.Item
                     style={{
-                      width: 100,
+                      width: 500,
+                      margin: "10px auto",
                       display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "space-between",
                     }}
-                    name={item.id}
-                    label={
-                      <label
-                        name={item.id}
-                        style={{ minWidth: 200, textAlign: "left" }}
-                      >
-                        "lorem Ips lorem29 "
-                      </label>
-                    }
+                    name={item2.id}
                   >
-                    <Radio.Group>
-                      {" "}
-                      <Radio.Button value={item2.title}>
-                        {item2.title}
-                      </Radio.Button>
-                    </Radio.Group>
+                    <Form.Item name={item.id}>
+                      <Radio.Group>
+                        <Radio.Button
+                          style={{ minWidth: "150px", textAlign: "center" }}
+                          value={item2.title}
+                        >
+                          {item2.title}
+                        </Radio.Button>
+                      </Radio.Group>
+                    </Form.Item>
                   </Form.Item>
                 );
               })}
@@ -120,8 +133,8 @@ const Test = () => {
           );
         })}
 
-        <Button onClick={handleChange} type="primary" htmlType="submit">
-          Sn
+        <Button type="primary" htmlType="submit">
+          Send
         </Button>
       </Form>
     </div>

@@ -8,8 +8,9 @@ const Verify = () => {
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/verify", e);
-      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
-      console.log(resp.data.refresh_token);
+      console.log(resp);
+      // localStorage.setItem("token", JSON.stringify(resp.data.access_token));
+      // console.log(resp.data.refresh_token);
       setTimeout(() => {
         navigate("/test");  
       }, 1000);
