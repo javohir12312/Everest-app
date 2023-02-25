@@ -3,28 +3,12 @@ import React, { useEffect, useState } from "react";
 import axios from "../../../server/api/index";
 import { Button, Modal, Form, Input, Spin, Result } from "antd";
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
 
-const Account = () => {
+const Account = React.memo(() => {
   const id = window.localStorage.getItem("id");
   const [users, setUsers] = useState([]);
   const [error, setError] = useState();
-
-  const onFunction = async (id) => {
-    try {
-      const resp = await axios.get(`/users/${id}`);
-      setUsers(resp.data);
-      if (error === true) {
-        setError(false)
-      }
-    } catch (error) {
-      if (error.message === "Request failed with status code 401") {
-        setError(true)
-      }
-    }
-  };
-  useEffect(() => {
-    onFunction(id);
-  }, [id, users]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -36,14 +20,29 @@ const Account = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  
+  const getUsers = useCallback(async (id) => {
+    const rest = await axios.get(`/users/${id}`);
+    setUsers(rest.data);
+    if(rest) {
+      setError(false)
+    } else {
+      setError(true)
+    }
+  }, []);
+  
   const onSubmit = async (evt) => {
     try {
-      await axios.put(`/user/${id}`, evt);
+      await axios.put(`/users/${id}`, evt);
     } catch (error) {
       console.log(error);
     }
+    getUsers(id)
   };
+
+  useEffect(() => {
+    getUsers(id)
+  }, [getUsers, id]);
 
   return (
     <>
@@ -273,5 +272,5 @@ const Account = () => {
         )}</>}
     </>
   );
-};
+});
 export default Account;

@@ -3,7 +3,6 @@ import {
   Button,
   Form,
   Input,
-  InputNumber,
   message,
   Modal,
   Select,
@@ -79,37 +78,34 @@ const Render = ({ elTitle }) => {
     setIsModalOpenDel(false);
   };
 
-  const onSubmit = async (evt) => {
+  const onSubmit = async (evt, id) => {
     try {
       const resp = await axios.put(`/categories/${id}`, evt);
       if (resp.status === 201) {
         success();
+        onFunction()
       } else {
         error();
       }
     } catch (error) {
+      error();  
       console.log(error);
     }
     navigate("/admin");
   };
 
-  const onDelete = async (evt) => {
+  const onDelete = async (id) => {
     try {
-      const resp = await axios.delete(`/categories/${evt.id}`);
-      if (resp.data.message === "Category has been successfully deleted!") {
-        success();
-      } else {
-        error();
-      }
+      await axios.delete(`/categories/${id}`);
     } catch (error) {
       console.log(error);
     }
     navigate("/admin");
   };
 
-  const onSubmitQuation = async (evt) => {
+  const onSubmitQuation = async (evt, id) => {
     const formData = new FormData();
-    formData.append("category_id", evt.category_id);
+    formData.append("category_id", id);
     formData.append("difficulty", evt.difficulty);
     formData.append("lang", evt.lang);
     formData.append("file", evt.file.file);
@@ -178,7 +174,7 @@ const Render = ({ elTitle }) => {
                   onCancel={handleCancel}
                   footer={null}
                 >
-                  <Form onFinish={(evt) => onSubmit(evt)}>
+                  <Form onFinish={(evt) => onSubmit(evt, id)}>
                     <Form.Item
                       label={"Yangi bo'lim nomini kiriting"}
                       name={"title"}
@@ -190,21 +186,6 @@ const Render = ({ elTitle }) => {
                       ]}
                     >
                       <Input placeholder="Yangi bo'lim nomini kiriting"></Input>
-                    </Form.Item>
-                    <Form.Item
-                      label={"Hozirgi Idni kiriting"}
-                      name={"id"}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Iltimos Id raqamini kiriting kiriting",
-                        },
-                      ]}
-                    >
-                      <InputNumber
-                        style={{ width: "100%" }}
-                        placeholder="Id kiriting"
-                      ></InputNumber>
                     </Form.Item>
                     <div
                       style={{
@@ -250,28 +231,14 @@ const Render = ({ elTitle }) => {
                   onCancel={handleCancelDel}
                   footer={null}
                 >
-                  <Form onFinish={(evt) => onDelete(evt)}>
-                    <Form.Item
-                      label={"Idni kiriting"}
-                      name={"id"}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Iltimos Id raqamini kiriting kiriting",
-                        },
-                      ]}
-                    >
-                      <InputNumber
-                        style={{ width: "100%" }}
-                        placeholder="Id kiriting"
-                      ></InputNumber>
-                    </Form.Item>
+                  <h6>Bu b'limni o'chirsangiz bo'lim ichidagi testlar ham o'chib ketadi!</h6>
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "flex-end",
                         gap: 20,
+                        marginTop: 20,
                       }}
                     >
                       <Button
@@ -283,13 +250,11 @@ const Render = ({ elTitle }) => {
                       <Button
                         style={{ display: "block", backgroundColor: "#28156E" }}
                         type="primary"
-                        htmlType="submit"
-                        onClick={handleCancelDel}
+                        onClick={() => {handleCancelDel(); onDelete(id)}}
                       >
                         Tasdiqlash
                       </Button>
                     </div>
-                  </Form>
                 </Modal>
               </div>
             </div>
@@ -310,10 +275,10 @@ const Render = ({ elTitle }) => {
               <h3 style={{ marginTop: 0, fontSize: 20 }}>Savol qo'shish</h3>
               <Form
                 style={{ width: 800 }}
-                onFinish={(evt) => onSubmitQuation(evt)}
+                onFinish={(evt) => onSubmitQuation(evt, id)}
                 form={form}
               >
-                <Form.Item
+                {/* <Form.Item
                   label={"Bo'lim Id raqamini kiriting"}
                   name={"category_id"}
                   rules={[
@@ -327,7 +292,7 @@ const Render = ({ elTitle }) => {
                     style={{ width: "100%" }}
                     placeholder="Bo'lim id raqamini kiriting"
                   />
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item
                   label={"Qiyinchilik darajasini tanlang"}
                   name={"difficulty"}

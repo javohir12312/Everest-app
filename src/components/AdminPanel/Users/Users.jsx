@@ -4,28 +4,26 @@ import { UserDeleteOutlined } from "@ant-design/icons";
 import { Button, Modal, Result, Spin } from "antd";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
 
-const Users = () => {
+const Users = React.memo(() => {
   const [users, setUsers] = useState([]);
   const [delId, setDelId] = useState();
   const [error, setError] = useState(false);
 
+  const getUsers = useCallback(async () => {
+    const rest = await axios.get(`/users`);
+    setUsers(rest.data.users);
+    if (rest) {
+      setError(false)
+    } else {
+      setError(true)
+    }
+  }, []);
+
   useEffect(() => {
-    const onFunction = async () => {
-      try {
-        const resp = await axios.get("/users");
-        setUsers(resp.data.users);
-        if (error === true) {
-          setError(false)
-        }
-      } catch (error) {
-        if (error.message === "Request failed with status code 401") {
-          setError(true)
-        }
-      }
-    };
-    onFunction();
-  }, [users]);
+    getUsers()
+  }, [getUsers]);
 
   const onDelete = async (id) => {
     try {
@@ -190,25 +188,6 @@ const Users = () => {
         )}</>}
     </div>
   );
-};
+});
 
-export default Users;
-
-// import { Link } from 'react-router-dom';
-// import { Button, Result } from 'antd';
-// const Users = () => (
-  // <Result
-  //   status="error"
-  //   title="Xavfsizlik ma'lumotlari eski"
-  //   subTitle="Iltimos qaytadan kiring"
-  //   extra={[
-  //     <Link to={"/login"}>
-  //     <Button type="primary" key="console">
-  //       Kirish
-  //     </Button>
-  //     </Link>
-  //   ]}
-  // >
-  // </Result>
-// );
-// export default Users;
+export default Users

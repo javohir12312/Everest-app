@@ -3,30 +3,19 @@ import {
   UserOutlined,
   PlusCircleOutlined,
   TeamOutlined,
+  FileDoneOutlined,
 } from "@ant-design/icons";
 import { Layout, Button, Modal, Input, Form, message } from "antd";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "../../../server/api/index";
 import "./Admin.scss";
 
 const { Content, Footer, Sider } = Layout;
 
-const Admin = () => {
+const Admin = React.memo(() => {
   const [categories, setCategories] = useState([]);
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    const onFunction = async () => {
-      try {
-        const resp = await axios.get("/categories");
-        setCategories(resp.data.categories);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    onFunction();
-  }, [categories]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -56,6 +45,15 @@ const Admin = () => {
     });
   };
 
+  const getTests = useCallback(async () => {
+    const rest = await axios.get("/categories");
+    setCategories(rest.data.categories);
+  }, []);
+
+  useEffect(() => {
+    getTests();
+  }, [getTests, categories]);
+
   const onSubmit = async (evt) => {
     try {
       const resp = await axios.post("/categories", evt);
@@ -67,6 +65,7 @@ const Admin = () => {
     } catch (error) {
       console.log(error);
     }
+    getTests();
     form.resetFields();
   };
 
@@ -117,7 +116,7 @@ const Admin = () => {
                   onCancel={handleCancel}
                   footer={null}
                 >
-                  <Form onFinish={(evt) => onSubmit(evt)}>
+                  <Form form={form} onFinish={(evt) => onSubmit(evt)}>
                     <Form.Item
                       label={"Yo'nalish"}
                       name={"title"}
@@ -165,7 +164,7 @@ const Admin = () => {
                   return (
                     <li key={el.id}>
                       <Link className="categorieLink" to={el.title}>
-                        {el.title.toUpperCase()} <span>{el.id}</span>
+                        {el.title.toUpperCase()} <FileDoneOutlined />
                       </Link>
                     </li>
                   );
@@ -205,5 +204,5 @@ const Admin = () => {
       )}
     </div>
   );
-};
+});
 export default Admin;

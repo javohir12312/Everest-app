@@ -18,21 +18,19 @@ import Users from "./components/AdminPanel/Users/Users";
 import Default from "./components/Default/Default";
 import Teacher from "./components/Teacher/Teacher";
 import axios from "./server/api/index";
+import { useCallback } from "react";
 
-const App = () => {
+const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
 
+  const getCategories = useCallback(async () => {
+    const rest = await axios.get("/categories");
+    setCategories(rest.data.categories);
+  }, []);
+
   useEffect(() => {
-    const onFunction = async () => {
-      try {
-        const resp = await axios.get("/categories");
-        setCategories(resp.data.categories);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    onFunction();
-  }, [categories]);
+    getCategories()
+  }, [getCategories, axios, categories]);
 
   return (
     <Routes>
@@ -65,6 +63,6 @@ const App = () => {
       <Route path="/verify" element={<Verify />} />
     </Routes>
   );
-};
+});
 
 export default App;

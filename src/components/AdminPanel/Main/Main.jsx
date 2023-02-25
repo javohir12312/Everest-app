@@ -1,12 +1,23 @@
-import { Button, Form, InputNumber, Select, Empty } from "antd";
-import React from "react";
+import { Button, Form, Select, Empty } from "antd";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import axios from "../../../server/api/index";
 
 const Main = () => {
+  const [categories, setCategories] = useState([]);
   const [options, setOptions] = useState([]);
   const [evt, setEvent] = useState([]);
   const [form] = Form.useForm();
+
+  const getTests = useCallback(async () => {
+    const rest = await axios.get("/categories");
+    setCategories(rest.data.categories);
+  }, []);
+
+  useEffect(() => {
+    getTests();
+  }, [getTests, categories]);
+
   const onSubmit = async (evt) => {
     setEvent(evt);
     try {
@@ -42,7 +53,7 @@ const Main = () => {
             borderRadius: "10px",
           }}
         >
-          <h3 style={{ marginTop: 0, fontSize: 22 }}>Qo'shilgan savollar</h3>
+          <h3 style={{ marginTop: 0, fontSize: 22 }}>Qo'shilgan testlar</h3>
           <Form
             style={{
               marginBottom: 20,
@@ -53,19 +64,28 @@ const Main = () => {
             onFinish={(evt) => onSubmit(evt)}
           >
             <Form.Item
-              label={"Bo'lim Id raqamini kiriting"}
+              label={"Bo'limni tanlang"}
               name={"category_id"}
               rules={[
                 {
                   required: true,
-                  message: "Iltimos bo'lim Id raqamini kiriting",
+                  message: "Iltimos bo'limni tanlang",
                 },
               ]}
             >
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder="Bo'lim id raqamini kiriting"
-              />
+              <Select placeholder={"Bo'limni tanlang"}>
+                {categories.length === 0 ? (
+                  <></>
+                ) : (
+                  categories.map((el) => {
+                    return (
+                      <Select.Option value={el.id}>
+                        {el.title.toUpperCase()}
+                      </Select.Option>
+                    );
+                  })
+                )}
+              </Select>
             </Form.Item>
             <Form.Item
               label={"Qiyinchilik darajasini tanlang"}
@@ -93,8 +113,8 @@ const Main = () => {
               ]}
             >
               <Select placeholder={"Tilni tanlang"}>
-                <Select.Option value="uz">UZB</Select.Option>
-                <Select.Option value="ru">RUS</Select.Option>
+                <Select.Option value="uz">UZ</Select.Option>
+                <Select.Option value="ru">RU</Select.Option>
               </Select>
             </Form.Item>
             <div
