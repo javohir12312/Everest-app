@@ -43,7 +43,7 @@ const Users = React.memo(() => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+console.log();
   return (
     <div>
       {error === true ? <Result

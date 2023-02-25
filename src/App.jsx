@@ -19,6 +19,7 @@ import Default from "./components/Default/Default";
 import Teacher from "./components/Teacher/Teacher";
 import axios from "./server/api/index";
 import { useCallback } from "react";
+import Titul from "./components/Titul/Titul";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
@@ -38,6 +39,7 @@ const App = React.memo(() => {
         <Route index element={<Default />} />
         <Route path="test" element={<Test />} />
         <Route path="teacher" element={<Teacher />} />
+        <Route path="/titul" element={<Titul />} />
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<LoginPage />} />
