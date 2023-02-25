@@ -45,7 +45,7 @@ const Users = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+console.log();
   return (
     <div>
       {error === true ? <Result

@@ -18,6 +18,7 @@ import Users from "./components/AdminPanel/Users/Users";
 import Default from "./components/Default/Default";
 import Teacher from "./components/Teacher/Teacher";
 import axios from "./server/api/index";
+import Titul from "./components/Titul/Titul";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -40,6 +41,7 @@ const App = () => {
         <Route index element={<Default />} />
         <Route path="test" element={<Test />} />
         <Route path="teacher" element={<Teacher />} />
+        <Route path="/titul" element={<Titul />} />
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<LoginPage />} />

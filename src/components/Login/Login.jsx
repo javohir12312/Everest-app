@@ -22,7 +22,7 @@ const Login = () => {
       }
       localStorage.setItem(
         "token",
-        JSON.stringify(values.data.token_response.access_token)
+        JSON.stringify(values.data.token_response.refresh_token)
       );
     } catch (error) {
       setAlert(true);
