@@ -1,14 +1,22 @@
 import { Button, Form, Select, Empty } from "antd";
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../../server/api/index";
 
 const Main = () => {
+  const navigate = useNavigate();
+
   const [categories, setCategories] = useState([]);
   const [options, setOptions] = useState([]);
   const [evt, setEvent] = useState([]);
   const [form] = Form.useForm();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+console.log(user);
+  if (user.type !== "admin") {
+    navigate("/");
+  }
   const getTests = useCallback(async () => {
     const rest = await axios.get("/categories");
     setCategories(rest.data.categories);
@@ -36,7 +44,8 @@ const Main = () => {
   };
 
   return (
-    <>
+   <>
+   {user.type == "admin" ?  <>
       <h2 style={{ marginTop: 0 }}>ASOSIY</h2>
       <div
         style={{
@@ -236,7 +245,8 @@ const Main = () => {
           </div>
         </div>
       </div>
-    </>
+    </> : null}
+   </>
   );
 };
 export default Main;

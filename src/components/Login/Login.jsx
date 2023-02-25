@@ -24,6 +24,10 @@ const Login = () => {
         "token",
         JSON.stringify(values.data.token_response.refresh_token)
       );
+      localStorage.setItem(
+        "user",
+        JSON.stringify(values.data.user)
+      );
     } catch (error) {
       setAlert(true);
       console.log(error);
