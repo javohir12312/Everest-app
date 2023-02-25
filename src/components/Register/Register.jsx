@@ -15,7 +15,7 @@ const Register = () => {
       navigate("/verify");
       localStorage.setItem(
         "token",
-        JSON.stringify(resp.data.token_response.refresh_token)
+        JSON.stringify(resp.data.token_response.access_token)
       );
       srtBtnL(true);
     } catch (error) {
