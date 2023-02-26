@@ -22,7 +22,6 @@ import { useCallback } from "react";
 import Titul from "./components/Titul/Titul";
 import { CookiesProvider } from "react-cookie";
 import CookieConsent from "react-cookie-consent/dist";
-import { Provider } from "react-redux";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
