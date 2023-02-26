@@ -44,10 +44,11 @@ const App = React.memo(() => {
         style={{ background: "#2B373B" }}
         buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
         expires={150}
-      >
-        Bunga ruxsat bermasangiz test ishlay olmaysiz
-        <a href="/privacy-policy">Learn more</a>
-      </CookieConsent>
+        onAccept={() => {
+          // Set a cookie when the user clicks "Allow"
+          document.cookie = true;
+        }}
+      ></CookieConsent>
       <Routes></Routes>
       <Routes>
         <Route path="/" element={<Home />}>
