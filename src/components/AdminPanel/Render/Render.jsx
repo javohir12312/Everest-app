@@ -283,21 +283,6 @@ const Render = ({ elTitle }) => {
                 onFinish={(evt) => onSubmitQuation(evt, id)}
                 form={form}
               >
-                {/* <Form.Item
-                  label={"Bo'lim Id raqamini kiriting"}
-                  name={"category_id"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Iltimos bo'lim Id raqamini kiriting",
-                    },
-                  ]}
-                >
-                  <InputNumber
-                    style={{ width: "100%" }}
-                    placeholder="Bo'lim id raqamini kiriting"
-                  />
-                </Form.Item> */}
                 <Form.Item
                   label={"Qiyinchilik darajasini tanlang"}
                   name={"difficulty"}

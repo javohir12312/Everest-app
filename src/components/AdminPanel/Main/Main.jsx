@@ -1,6 +1,6 @@
-import { Button, Form, Select, Empty, Skeleton, Modal } from "antd";
+import { Button, Form, Select, Empty, Skeleton, Modal, Input } from "antd";
 import React, { useCallback, useEffect } from "react";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import axios from "../../../server/api/index";
 
@@ -87,6 +87,17 @@ const Main = () => {
   };
   const handleCancelDelList = () => {
     setIsDelListOpen(false);
+  };
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const showEdit = () => {
+    setIsEditOpen(true);
+  };
+  const handleOkEdit = () => {
+    setIsEditOpen(false);
+  };
+  const handleCancelEdit = () => {
+    setIsEditOpen(false);
   };
 
   return (
@@ -218,6 +229,8 @@ const Main = () => {
                 <div>
                   <Button
                     type="primary"
+                    danger
+                    ghost
                     onClick={showDelList}
                     icon={<DeleteOutlined />}
                   />
@@ -292,7 +305,7 @@ const Main = () => {
                 <strong>To'g'ri javob</strong>
               </li>
               <li style={{ width: "10.5%", fontSize: 22 }}>
-                <strong>O'chirish</strong>
+                <strong>Boshqalar</strong>
               </li>
             </ul>
             <div>
@@ -341,13 +354,28 @@ const Main = () => {
                       <li style={{ width: "10.5%", fontSize: 18 }}>
                         {el.answer_option}
                       </li>
-                      <li style={{ width: "10.5%", fontSize: 18 }}>
-                        <span
-                          style={{ cursor: "pointer" }}
+                      <li
+                        style={{
+                          width: "10.5%",
+                          fontSize: 18,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 20,
+                        }}
+                      >
+                        {/* <Button
+                          onClick={() => showEdit(el.id)}
+                          type="primary"
+                          ghost
+                          icon={<EditOutlined />}
+                        ></Button> */}
+                        <Button
                           onClick={() => showModal(el.id)}
-                        >
-                          <DeleteOutlined />
-                        </span>
+                          type="primary"
+                          icon={<DeleteOutlined />}
+                          danger
+                          ghost
+                        ></Button>
                       </li>
                     </ul>
                   );
@@ -356,6 +384,56 @@ const Main = () => {
             </div>
           </div>
         </div>
+        {/* <Modal
+          title="Taxrirlash"
+          open={isEditOpen}
+          onOk={handleOkEdit}
+          onCancel={handleCancelEdit}
+          footer={null}
+        >
+          <Form
+            style={{ marginTop: 25 }}
+            onFinish={(evt) => onSubmit(evt)}
+            initialValues={{
+              question: options.question,
+            }}
+          >
+            <Form.Item
+              label={"Savol"}
+              name={"question"}
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos ismingizni kiriting",
+                },
+              ]}
+            >
+              <Input placeholder="Savol"></Input>
+            </Form.Item>
+            <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button style={{ marginRight: 15 }} onClick={handleOkEdit}>
+              Bekor qilish
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "#28156E",
+                color: "white",
+              }}
+              onClick={() => {
+                handleCancelEdit();
+                onEdit(id);
+              }}
+            >
+              Tasdiqlash
+            </Button>
+          </div>
+          </Form>
+        </Modal> */}
         <Modal
           title="O'chirish"
           open={isModalOpen}
