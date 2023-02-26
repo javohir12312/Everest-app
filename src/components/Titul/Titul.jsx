@@ -1,11 +1,13 @@
 import React from "react";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
+import { useSelector } from "react-redux";
+import { addData } from "../../slice";
 import "../Titul/Titul.scss";
 
 const Titul = () => {
-  const answers = JSON.parse(localStorage.getItem("answers"));
+  const answers = useSelector(state => state.data.dataArray[0])
   const { first_name } = JSON.parse(localStorage.getItem("user"));
-
+// console.log(isTrue);
   const count = answers.filter((item) => item.is_true).length;
 
   return (
