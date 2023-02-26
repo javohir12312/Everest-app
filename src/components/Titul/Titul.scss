@@ -21,6 +21,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50px;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,12 +29,14 @@
   }
   
   .correct {
+    text-align: center;
     background: #69f0ae;
     border: 5px solid #2e7d32;
     color: black;
   }
   
   .incorrect {
+    text-align: center;
     border: 5px solid #f50057;
   }
   
