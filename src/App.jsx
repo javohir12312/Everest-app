@@ -30,8 +30,8 @@ const App = React.memo(() => {
   }, []);
 
   useEffect(() => {
-    getCategories()
-  }, [getCategories, axios, categories]);
+    getCategories();
+  }, [getCategories, categories]);
 
   return (
     <Routes>

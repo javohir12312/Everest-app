@@ -83,12 +83,12 @@ const Render = ({ elTitle }) => {
       const resp = await axios.put(`/categories/${id}`, evt);
       if (resp.status === 201) {
         success();
-        onFunction()
+        onFunction();
       } else {
         error();
       }
     } catch (error) {
-      error();  
+      error();
       console.log(error);
     }
     navigate("/admin");
@@ -153,7 +153,6 @@ const Render = ({ elTitle }) => {
               fontSize: 22,
             }}
           >
-            <p style={{ margin: 0 }}>Id: {id}</p>
             <p style={{ margin: 0 }}>Bo'lim: {elTitle.toUpperCase()}</p>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div>
@@ -231,30 +230,36 @@ const Render = ({ elTitle }) => {
                   onCancel={handleCancelDel}
                   footer={null}
                 >
-                  <h6>Bu b'limni o'chirsangiz bo'lim ichidagi testlar ham o'chib ketadi!</h6>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        gap: 20,
-                        marginTop: 20,
+                  <h6>
+                    Bu b'limni o'chirsangiz bo'lim ichidagi testlar ham o'chib
+                    ketadi!
+                  </h6>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-end",
+                      gap: 20,
+                      marginTop: 20,
+                    }}
+                  >
+                    <Button
+                      style={{ display: "block" }}
+                      onClick={handleCancelDel}
+                    >
+                      Bekor qilish
+                    </Button>
+                    <Button
+                      style={{ display: "block", backgroundColor: "#28156E" }}
+                      type="primary"
+                      onClick={() => {
+                        handleCancelDel();
+                        onDelete(id);
                       }}
                     >
-                      <Button
-                        style={{ display: "block" }}
-                        onClick={handleCancelDel}
-                      >
-                        Bekor qilish
-                      </Button>
-                      <Button
-                        style={{ display: "block", backgroundColor: "#28156E" }}
-                        type="primary"
-                        onClick={() => {handleCancelDel(); onDelete(id)}}
-                      >
-                        Tasdiqlash
-                      </Button>
-                    </div>
+                      Tasdiqlash
+                    </Button>
+                  </div>
                 </Modal>
               </div>
             </div>

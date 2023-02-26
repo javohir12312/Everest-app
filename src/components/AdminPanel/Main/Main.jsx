@@ -1,5 +1,6 @@
-import { Button, Form, Select, Empty } from "antd";
+import { Button, Form, Select, Empty, Skeleton, Modal } from "antd";
 import React, { useCallback, useEffect } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import axios from "../../../server/api/index";
 
@@ -7,6 +8,7 @@ const Main = () => {
   const [categories, setCategories] = useState([]);
   const [options, setOptions] = useState([]);
   const [evt, setEvent] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
   const getTests = useCallback(async () => {
@@ -19,10 +21,11 @@ const Main = () => {
   }, [getTests, categories]);
 
   const onSubmit = async (evt) => {
+    setLoading(true);
     setEvent(evt);
     try {
       const { data } = await axios.get(
-        `/tests?category_id=${evt.category_id}&difficulty=${evt.difficulty}&lang=${evt.lang}`
+        `/tests/by/category?category_id=${evt.category_id}&difficulty=${evt.difficulty}&lang=${evt.lang}`
       );
       setOptions(data.tests);
     } catch (error) {
@@ -33,6 +36,57 @@ const Main = () => {
 
   const onCancel = () => {
     form.resetFields();
+  };
+
+  useEffect(() => {
+    if (options.length > 0) {
+      setLoading(false);
+    }
+  }, [options, setLoading]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState(null);
+
+  const showModal = (id) => {
+    setIsModalOpen(true);
+    setId(id);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const onDelete = async (id) => {
+    try {
+      await axios.delete(`tests/one?category_id=${evt.category_id}&id=${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    onSubmit(evt);
+  };
+
+  const onDeleteList = async (evt) => {
+    try {
+      await axios.delete(
+        `tests/many?category_id=${evt.category_id}&difficulty=${evt.difficulty}&lang=${evt.lang}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    onSubmit(evt);
+  };
+
+  const [isDelListOpen, setIsDelListOpen] = useState(false);
+  const showDelList = () => {
+    setIsDelListOpen(true);
+  };
+  const handleOkDelList = () => {
+    setIsDelListOpen(false);
+  };
+  const handleCancelDelList = () => {
+    setIsDelListOpen(false);
   };
 
   return (
@@ -139,19 +193,64 @@ const Main = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 15,
-                marginBottom: 10,
+                justifyContent: "space-between",
               }}
             >
-              <div>
-                Bo'lim id raqami: <strong>{evt.category_id}</strong>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 15,
+                  marginBottom: 10,
+                }}
+              >
+                <div>
+                  Bo'lim id raqami: <strong>{evt.category_id}</strong>
+                </div>
+                <div>
+                  Qiyinchilik darajasi: <strong>{evt.difficulty}</strong>
+                </div>
+                <div>
+                  Til turi: <strong>{evt.lang}</strong>
+                </div>
               </div>
-              <div>
-                Qiyinchilik darajasi: <strong>{evt.difficulty}</strong>
-              </div>
-              <div>
-                Til turi: <strong>{evt.lang}</strong>
-              </div>
+              {options.length > 0 ? (
+                <div>
+                  <Button
+                    type="primary"
+                    onClick={showDelList}
+                    icon={<DeleteOutlined />}
+                  />
+                  <Modal
+                    title="Barcha testlarni o'chirish"
+                    open={isDelListOpen}
+                    onOk={handleOkDelList}
+                    onCancel={handleCancelDelList}
+                    footer={null}
+                  >
+                    <p>Siz barcha testlarni o'chirmoqchimisiz ?</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <Button style={{ marginRight: 15 }} onClick={handleOkDelList}>
+                        Bekor qilish
+                      </Button>
+                      <Button
+                        style={{
+                          backgroundColor: "#28156E",
+                          color: "white",
+                        }}
+                        onClick={() => {handleCancel(); onDeleteList(evt)}}
+                      >
+                        O'chirish
+                      </Button>
+                    </div>
+                  </Modal>
+                </div>
+              ) : null}
             </div>
             <ul
               style={{
@@ -168,29 +267,37 @@ const Main = () => {
               <li style={{ width: "19%", fontSize: 22 }}>
                 <strong>Savol</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>Rasm</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>Javob 1</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>Javob 2</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>Javob 3</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>Javob 4</strong>
               </li>
-              <li style={{ width: "12%", fontSize: 22 }}>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
                 <strong>To'g'ri javob</strong>
+              </li>
+              <li style={{ width: "10.5%", fontSize: 22 }}>
+                <strong>O'chirish</strong>
               </li>
             </ul>
             <div>
               {options.length === 0 ? (
                 <div style={{ marginTop: 80 }}>
                   <Empty />
+                </div>
+              ) : loading ? (
+                <div style={{ marginTop: 50 }}>
+                  <Skeleton active />
+                  <Skeleton active />
                 </div>
               ) : (
                 options.map((el) => {
@@ -213,20 +320,28 @@ const Main = () => {
                       <li style={{ width: "19%", fontSize: 18 }}>
                         {el.question}
                       </li>
-                      <li style={{ width: "12%", fontSize: 18 }}>
+                      <li style={{ width: "10.5%", fontSize: 18 }}>
                         {el.question_image_url === true
                           ? el.question_image_url
                           : "Rasim yo'q"}
                       </li>
                       {el.options.map((el) => {
                         return (
-                          <li style={{ width: "12%", fontSize: 18 }}>
+                          <li style={{ width: "10.5%", fontSize: 18 }}>
                             {el.title}
                           </li>
                         );
                       })}
-                      <li style={{ width: "12%", fontSize: 18 }}>
+                      <li style={{ width: "10.5%", fontSize: 18 }}>
                         {el.answer_option}
+                      </li>
+                      <li style={{ width: "10.5%", fontSize: 18 }}>
+                        <span
+                          style={{ cursor: "pointer" }}
+                          onClick={() => showModal(el.id)}
+                        >
+                          <DeleteOutlined />
+                        </span>
                       </li>
                     </ul>
                   );
@@ -235,6 +350,37 @@ const Main = () => {
             </div>
           </div>
         </div>
+        <Modal
+          title="O'chirish"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <p>Siz bu testni o'chirmoqchimisiz ?</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button style={{ marginRight: 15 }} onClick={handleOk}>
+              Bekor qilish
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "#28156E",
+                color: "white",
+              }}
+              onClick={() => {
+                handleCancel();
+                onDelete(id);
+              }}
+            >
+              O'chirish
+            </Button>
+          </div>
+        </Modal>
       </div>
     </>
   );
