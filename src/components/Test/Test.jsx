@@ -2,6 +2,8 @@ import { Button, Empty, Form, Radio, Select } from "antd";
 import axios from "../../server/api/index";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addData } from "../../slice";
 
 const Test = React.memo(() => {
   const [data, setData] = useState([]);
@@ -9,6 +11,8 @@ const Test = React.memo(() => {
   const [level, setlevel] = useState();
   const [lang, setLang] = useState();
   const [dis, setDis] = useState(false);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -64,10 +68,9 @@ const Test = React.memo(() => {
           "/tests/check-answers",
           JSON.stringify(obj)
         );
-        localStorage.setItem(
-          "answers",
-          JSON.stringify(rest.data.checked_tests)
-        );
+
+        dispatch(addData(rest.data.checked_tests));
+
         navigate("/titul");
       } catch (error) {
         console.log(error);

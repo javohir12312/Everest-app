@@ -22,6 +22,7 @@ import { useCallback } from "react";
 import Titul from "./components/Titul/Titul";
 import { CookiesProvider } from "react-cookie";
 import CookieConsent from "react-cookie-consent/dist";
+import { Provider } from "react-redux";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
@@ -36,50 +37,50 @@ const App = React.memo(() => {
   }, [getCategories, categories]);
 
   return (
-    <CookiesProvider>
-      <CookieConsent
-        location="bottom"
-        buttonText="Ruxsat"
-        cookieName="myCookie"
-        style={{ background: "#2B373B" }}
-        buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-        expires={150}
-        onAccept={() => {
-          document.cookie = true;
-        }}
-      ></CookieConsent>
-      <Routes></Routes>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route index element={<Default />} />
-          <Route path="test" element={<Test />} />
-          <Route path="teacher" element={<Teacher />} />
-          <Route path="/titul" element={<Titul />} />
-        </Route>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/newPass" element={<NewPass />} />
-        <Route path="/forgot-pass" element={<ForgotPs />} />
-        <Route path="/forgot-verify" element={<VerifyForgot />} />
-        <Route path="/forgot-email" element={<UpdateEmail />} />
-        <Route path="/newEmail" element={<NewEmail />} />
-        <Route path="/admin" element={<Admin />}>
-          <Route index element={<Main />} />
-          {categories.map((el) => {
-            return (
-              <Route
-                path={el.title}
-                key={el.id}
-                element={<Render elTitle={el.title} />}
-              />
-            );
-          })}
-          <Route path="users" element={<Users />} />
-          <Route path="account" element={<Account />} />
-        </Route>
-        <Route path="/verify" element={<Verify />} />
-      </Routes>
-    </CookiesProvider>
+      <CookiesProvider>
+        <CookieConsent
+          location="bottom"
+          buttonText="Ruxsat"
+          cookieName="myCookie"
+          style={{ background: "#2B373B" }}
+          buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+          expires={150}
+          onAccept={() => {
+            document.cookie = true;
+          }}
+        ></CookieConsent>
+        <Routes></Routes>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Default />} />
+            <Route path="test" element={<Test />} />
+            <Route path="teacher" element={<Teacher />} />
+            <Route path="/titul" element={<Titul />} />
+          </Route>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/newPass" element={<NewPass />} />
+          <Route path="/forgot-pass" element={<ForgotPs />} />
+          <Route path="/forgot-verify" element={<VerifyForgot />} />
+          <Route path="/forgot-email" element={<UpdateEmail />} />
+          <Route path="/newEmail" element={<NewEmail />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route index element={<Main />} />
+            {categories.map((el) => {
+              return (
+                <Route
+                  path={el.title}
+                  key={el.id}
+                  element={<Render elTitle={el.title} />}
+                />
+              );
+            })}
+            <Route path="users" element={<Users />} />
+            <Route path="account" element={<Account />} />
+          </Route>
+          <Route path="/verify" element={<Verify />} />
+        </Routes>
+      </CookiesProvider>
   );
 });
 
