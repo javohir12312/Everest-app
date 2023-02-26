@@ -1,6 +1,6 @@
 import { Button, Form, Select, Empty, Skeleton, Modal, Input } from "antd";
 import React, { useCallback, useEffect } from "react";
-import { DeleteOutlined, } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import axios from "../../../server/api/index";
 
@@ -87,6 +87,17 @@ const Main = () => {
   };
   const handleCancelDelList = () => {
     setIsDelListOpen(false);
+  };
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const showEdit = () => {
+    setIsEditOpen(true);
+  };
+  const handleOkEdit = () => {
+    setIsEditOpen(false);
+  };
+  const handleCancelEdit = () => {
+    setIsEditOpen(false);
   };
 
   return (
@@ -352,6 +363,12 @@ const Main = () => {
                           gap: 20,
                         }}
                       >
+                        {/* <Button
+                          onClick={() => showEdit(el.id)}
+                          type="primary"
+                          ghost
+                          icon={<EditOutlined />}
+                        ></Button> */}
                         <Button
                           onClick={() => showModal(el.id)}
                           type="primary"
@@ -367,6 +384,56 @@ const Main = () => {
             </div>
           </div>
         </div>
+        {/* <Modal
+          title="Taxrirlash"
+          open={isEditOpen}
+          onOk={handleOkEdit}
+          onCancel={handleCancelEdit}
+          footer={null}
+        >
+          <Form
+            style={{ marginTop: 25 }}
+            onFinish={(evt) => onSubmit(evt)}
+            initialValues={{
+              question: options.question,
+            }}
+          >
+            <Form.Item
+              label={"Savol"}
+              name={"question"}
+              rules={[
+                {
+                  required: true,
+                  message: "Iltimos ismingizni kiriting",
+                },
+              ]}
+            >
+              <Input placeholder="Savol"></Input>
+            </Form.Item>
+            <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button style={{ marginRight: 15 }} onClick={handleOkEdit}>
+              Bekor qilish
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "#28156E",
+                color: "white",
+              }}
+              onClick={() => {
+                handleCancelEdit();
+                onEdit(id);
+              }}
+            >
+              Tasdiqlash
+            </Button>
+          </div>
+          </Form>
+        </Modal> */}
         <Modal
           title="O'chirish"
           open={isModalOpen}

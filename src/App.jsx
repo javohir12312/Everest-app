@@ -22,6 +22,8 @@ import { useCallback } from "react";
 import Titul from "./components/Titul/Titul";
 import { CookiesProvider } from "react-cookie";
 import CookieConsent from "react-cookie-consent/dist";
+import { Provider } from "react-redux";
+import store from "./redux";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
@@ -36,7 +38,8 @@ const App = React.memo(() => {
   }, [getCategories, categories]);
 
   return (
-      <CookiesProvider>
+     <Provider store={store}>
+       <CookiesProvider>
         <CookieConsent
           location="bottom"
           buttonText="Ruxsat"
@@ -80,6 +83,7 @@ const App = React.memo(() => {
           <Route path="/verify" element={<Verify />} />
         </Routes>
       </CookiesProvider>
+     </Provider>
   );
 });
 

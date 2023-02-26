@@ -85,6 +85,8 @@ const Test = React.memo(() => {
     },
     [getTests]
   );
+
+  console.log(test);
   return (
     <div>
       {dis ? null : (
@@ -180,6 +182,7 @@ const Test = React.memo(() => {
                 <h4>
                   {index + 1}. {item.question}
                 </h4>
+                <img src={`mirasildev.uz/swagger/index.html/media${item.question_image_url}`} alt="" />
                 {item.options.map((item2) => {
                   return (
                     <Form.Item
