@@ -19,7 +19,7 @@ const Register = () => {
   };
 
   const error2 = () => {
-    messageApi.open({
+    messageApi.open({ 
       type: "error",
       content: "Kodingizda son va harf bo'lishi shart",
     });

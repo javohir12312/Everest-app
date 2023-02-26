@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import "./Home.scss";
-// import logo from "../image/"
+// import logo from ;
 
 const Home = () => {
   return (
@@ -17,11 +17,8 @@ const Home = () => {
             }}
           >
             <div>
-              <Link
-                className="logo"
-                to={""}
-              >
-                {/* <img src={logo} alt="" /> */}
+              <Link className="logo" to={""}>
+                <img style={{background:'white',borderRadius:"100%"}} src={"../assets/images/logo.png"} alt="" width={100}/>
               </Link>
             </div>
             <ul style={{ display: "flex", alignItems: "center", gap: 40 }}>
@@ -38,11 +35,9 @@ const Home = () => {
         </Menu>
       </header>
       <main>
-          <Outlet></Outlet>
+        <Outlet></Outlet>
       </main>
-      <footer>
-        Micromania
-      </footer>
+      <footer>Micromania</footer>
     </>
   );
 };
