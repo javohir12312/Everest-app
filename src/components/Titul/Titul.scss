@@ -1,0 +1,46 @@
+.title {
+    color: #2979ff;
+    text-align: center;
+    margin: 30px auto;
+    padding: 0px;
+  }
+  
+  .answers-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .answers-list li {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .correct {
+    text-align: center;
+    background: #69f0ae;
+    border: 5px solid #2e7d32;
+    color: black;
+  }
+  
+  .incorrect {
+    text-align: center;
+    border: 5px solid #f50057;
+  }
+  
+  .total {
+    text-align: center;
+    margin: 100px 0;
+  }

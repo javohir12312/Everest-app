@@ -2,22 +2,29 @@ import { Button, Form, Input } from "antd";
 import axios from "../../server/api/index";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const Verify = () => {
+const Verify = React.memo(() => {
+
   const navigate = useNavigate();
+
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/verify", e);
       console.log(resp);
-      // localStorage.setItem("token", JSON.stringify(resp.data.access_token));
-      // console.log(resp.data.refresh_token);
+      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
+      console.log(resp.data.refresh_token);
       setTimeout(() => {
-        navigate("/test");  
+        navigate("/test");
       }, 1000);
     } catch (error) {
       console.log(error);
     }
   };
+  
+  useEffect(() => {
+    alert("Emailingizga tasdiqlash kodi yuborildi");
+  }, []);
 
   return (
     <div style={{ width: "100%", height: "100vh", background: "#90CAF9" }}>
@@ -36,12 +43,15 @@ const Verify = () => {
         }}
         onFinish={onFinish}
       >
+        <h6 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Tasdiqlash kodini kiriting
+        </h6>
         <Form.Item label="code" name="code">
-          <Input placeholder="Verify code" />
+          <Input placeholder="Tasdiqlash kodi code" />
         </Form.Item>
 
         <Form.Item label="Email" name="email">
-          <Input type="email" placeholder="Your Email" />
+          <Input type="email" placeholder="Sizning Email" />
         </Form.Item>
 
         <Button style={{ width: "100%" }} htmlType="submit" type="primary">
@@ -50,6 +60,6 @@ const Verify = () => {
       </Form>
     </div>
   );
-};
+});
 
 export default Verify;

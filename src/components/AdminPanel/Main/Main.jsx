@@ -235,7 +235,10 @@ const Main = () => {
                         justifyContent: "flex-end",
                       }}
                     >
-                      <Button style={{ marginRight: 15 }} onClick={handleOkDelList}>
+                      <Button
+                        style={{ marginRight: 15 }}
+                        onClick={handleOkDelList}
+                      >
                         Bekor qilish
                       </Button>
                       <Button
@@ -243,7 +246,10 @@ const Main = () => {
                           backgroundColor: "#28156E",
                           color: "white",
                         }}
-                        onClick={() => {handleCancel(); onDeleteList(evt)}}
+                        onClick={() => {
+                          handleCancel();
+                          onDeleteList(evt);
+                        }}
                       >
                         O'chirish
                       </Button>

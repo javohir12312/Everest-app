@@ -1,18 +1,37 @@
 import React from "react";
+import { FcCancel, FcCheckmark } from "react-icons/fc";
+import "../Titul/Titul.scss";
 
 const Titul = () => {
-  const data = JSON.parse(localStorage.getItem("answers"));
+  const answers = JSON.parse(localStorage.getItem("answers"));
+  const { first_name } = JSON.parse(localStorage.getItem("user"));
+
+  const count = answers.filter((item) => item.is_true).length;
+
   return (
     <div>
-      <ul style={{ listStyle: "none" }}>
-        <li>
-          <ul style={{ listStyle: "none" }}>
-            {data.map((item) => {
-              return <li style={item.is_true ? {background:'red'} : {background:'black'}}>{item.test_id}</li>;
-            })}
-          </ul>
-        </li>
+      <h5 className="title">
+        Hurmatli {first_name} sizni belgilagan javoblaringiz!
+      </h5>
+      <ul className="answers-list">
+        {answers.map((item, index) => (
+          <li key={index} className={item.is_true ? "correct" : "incorrect"}>
+            <div style={{display:"flex", alignItems:'center',justifyContent:'center',textAlign:'center',width:30}}>
+              {index + 1}
+              {item.is_true ? (
+                <FcCheckmark />
+              ) : (
+                <FcCancel style={{ width: 50 }} />
+              )}
+            </div>
+          </li>
+        ))}
       </ul>
+      <div>
+        <h4 className="total">
+          Sizning tog'ri belgilagan javoblaringiz soni {count} ta
+        </h4>
+      </div>
     </div>
   );
 };
