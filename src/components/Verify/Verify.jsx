@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Verify = React.memo(() => {
+
   const navigate = useNavigate();
+
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/verify", e);
@@ -19,7 +21,7 @@ const Verify = React.memo(() => {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     alert("Emailingizga tasdiqlash kodi yuborildi");
   }, []);
