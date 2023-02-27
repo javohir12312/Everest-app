@@ -36,32 +36,12 @@ const Register = () => {
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/register", e);
-      localStorage.setItem(
-        "token",
-        JSON.stringify(resp.data.token_response.access_token)
-      );
       srtBtnL(true);
-      navigate("/verify");
+      setTimeout(() => {
+        navigate("/verify");
+      }, 500);
     } catch (error) {
-      if (
-        error.response.data.error === "email already exists" ||
-        error.response.data.error ===
-          "Key: 'RegisterRequest.Email' Error:Field validation for 'Email' failed on the 'email' tag"
-      ) {
-        error1();
-      } else if (
-        error.response.data.error ==
-        "password must contain at least one small letter, one capital letter, one number, one symbol"
-      ) {
-        error2();
-      } else if (
-        error.response.data.error ==
-        "ey: 'RegisterRequest.Email' Error:Field validation for 'Email' failed on the 'email' tag"
-      ) {
-        error3();
-      } else {
-        console.log(error);
-      }
+      console.log(error);
     }
   };
 

@@ -5,11 +5,16 @@ import { addData } from "../../slice";
 import "../Titul/Titul.scss";
 
 const Titul = () => {
-  const answers = useSelector(state => state.data.dataArray[0])
+  const answers = useSelector((state) =>
+    state.data.dataArray.length > 1
+      ? state.data.dataArray.at(-1)
+      : state.data.dataArray[0]
+  );
   const { first_name } = JSON.parse(localStorage.getItem("user"));
-// console.log(isTrue);
+  // console.log(isTrue);
   const count = answers.filter((item) => item.is_true).length;
 
+  console.log(answers);
   return (
     <div>
       <h5 className="title">
@@ -18,7 +23,15 @@ const Titul = () => {
       <ul className="answers-list">
         {answers.map((item, index) => (
           <li key={index} className={item.is_true ? "correct" : "incorrect"}>
-            <div style={{display:"flex", alignItems:'center',justifyContent:'center',textAlign:'center',width:30}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                width: 30,
+              }}
+            >
               {index + 1}
               {item.is_true ? (
                 <FcCheckmark />
