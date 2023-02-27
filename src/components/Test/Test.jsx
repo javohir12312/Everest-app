@@ -231,7 +231,7 @@ const Test = React.memo(() => {
           )}
           {load ? null : (
             <Button type="primary" htmlType="submit">
-              Send
+              Jo'natish
             </Button>
           )}
         </Form>
