@@ -180,6 +180,23 @@ const Admin = React.memo(() => {
                   </Link>
                 </li>
               </ul>
+              <Link
+              to={'/'}
+                style={{
+                  position: "fixed",
+                  bottom: "20px",
+                  left: "20px",
+                  width: "150px",
+                  border: "none",
+                  background: "white",
+                  textAlign: "center",
+                  fontSize: "16px",
+                  color: "black",
+                  borderRadius:"10px"
+                }}
+              >
+                Exit
+              </Link>
             </Sider>
             <Layout className="site-layout">
               <Content
