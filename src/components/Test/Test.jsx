@@ -76,7 +76,9 @@ const Test = React.memo(() => {
 
         dispatch(addData(rest.data.checked_tests));
 
-        navigate("/titul");
+        setTimeout(() => {
+          navigate("/titul");
+        }, 500);
       } catch (error) {
         console.log(error);
       }
@@ -182,7 +184,16 @@ const Test = React.memo(() => {
           onFinish={onFinish}
         >
           {load ? (
-            <Space style={{width:"100%",height:"300px", display:"flex",alignItems:"center",justifyContent:"center"}} size="middle">
+            <Space
+              style={{
+                width: "100%",
+                height: "300px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              size="middle"
+            >
               <Spin size="large" />
             </Space>
           ) : (
