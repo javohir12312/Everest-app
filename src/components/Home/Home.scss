@@ -1,6 +1,6 @@
 header {
   padding-inline: 40px;
-  background-color: #28156E;
+  background-color: #28156e;
 }
 main {
   padding: 20px;
@@ -9,7 +9,7 @@ footer {
   padding: 20px 0;
   text-align: center;
   color: #fff;
-  background-color: #28156E;
+  background-color: #28156e;
 }
 .site-layout-content {
   height: 100%;
@@ -38,7 +38,7 @@ footer {
   text-align: center;
   display: block;
   &:hover {
-    color: #78909C;
+    color: #78909c;
   }
   &:active {
     opacity: 0.7;
@@ -51,7 +51,7 @@ footer {
   font-weight: 700;
   color: white;
   &:hover {
-    color: #78909C;
+    color: #78909c;
   }
   &:active {
     opacity: 0.7;
@@ -67,5 +67,84 @@ footer {
     font-size: 16px;
     line-height: 40px;
     padding: 2px 20px;
+  }
+}
+
+.ham {
+  display: none;
+}
+.box123 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ham {
+  position: absolute;
+  right: 0;
+  top: -100%;
+  border-bottom-left-radius: 20px;
+  transition:0.3s;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 25px;
+  z-index: 100;
+  span {
+    display: block;
+    height: 5px;
+    background: white;
+    width: 40px;
+    border-radius: 50px;
+    
+  }
+  margin-right: -10px;
+}
+
+@media screen and (max-width: 520px) {
+  .box123 {
+    display: none;
+  }
+
+  
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 25px;
+  z-index: 100;
+  span {
+    display: block;
+    height: 5px;
+    background: white;
+    width: 40px;
+    border-radius: 50px;
+    
+  }
+  margin-right: -10px;
+}
+
+  .ham {
+    background: rgba(39, 39, 39, 0.4);
+    border-bottom-left-radius: 20px;
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    top: -100%;
+    padding: 70px 10px ;
+    div {
+      display: block;
+    }
+    display: block;
+  }
+
+  .testButton {
+    width: 140px;
+    text-align: center;
+    font-size: 15px;
+    padding: 0;
   }
 }

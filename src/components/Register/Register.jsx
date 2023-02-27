@@ -19,7 +19,7 @@ const Register = () => {
   };
 
   const error2 = () => {
-    messageApi.open({ 
+    messageApi.open({
       type: "error",
       content: "Kodingizda son va harf bo'lishi shart",
     });
@@ -36,14 +36,18 @@ const Register = () => {
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/register", e);
-      navigate("/verify");
       localStorage.setItem(
         "token",
         JSON.stringify(resp.data.token_response.access_token)
       );
       srtBtnL(true);
+      navigate("/verify");
     } catch (error) {
-      if (error.response.data.error === "email already exists" || error.response.data.error === "Key: 'RegisterRequest.Email' Error:Field validation for 'Email' failed on the 'email' tag") {
+      if (
+        error.response.data.error === "email already exists" ||
+        error.response.data.error ===
+          "Key: 'RegisterRequest.Email' Error:Field validation for 'Email' failed on the 'email' tag"
+      ) {
         error1();
       } else if (
         error.response.data.error ==

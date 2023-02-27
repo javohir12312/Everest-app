@@ -1,4 +1,4 @@
-import { Button, Empty, Form, Radio, Select } from "antd";
+import { Button, Empty, Form, Radio, Select, Space, Spin } from "antd";
 import axios from "../../server/api/index";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ const Test = React.memo(() => {
   const [level, setlevel] = useState();
   const [lang, setLang] = useState();
   const [dis, setDis] = useState(false);
+  const [load, setLoad] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -46,6 +47,10 @@ const Test = React.memo(() => {
           `/tests?category_id=${id}&difficulty=${level}&lang=${lang}`
         );
         setDis(true);
+        setLoad(true);
+        setTimeout(() => {
+          setLoad(false);
+        }, 1500);
         setTest(rest.data.tests);
       } catch (error) {
         console.log(error);
@@ -176,47 +181,59 @@ const Test = React.memo(() => {
           }}
           onFinish={onFinish}
         >
-          {test.map((item, index) => {
-            return (
-              <React.Fragment key={item.id}>
-                <h4>
-                  {index + 1}. {item.question}
-                </h4>
-                <img style={{margin:"30px 0"}} src={item.question_image_url} alt="" width={200}/>
-                {item.options.map((item2) => {
-                  return (
-                    <Form.Item
-                      key={item2.id}
-                      style={{
-                        maxWidth: 500,
-                        margin: "10px auto",
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                      name={item2.id}
-                    >
-                      <Form.Item name={item.id}>
-                        <Radio.Group>
-                          <Radio.Button
-                            style={{ minWidth: "150px", textAlign: "center" }}
-                            value={item2.title}
-                          >
-                            {item2.title}
-                          </Radio.Button>
-                        </Radio.Group>
+          {load ? (
+            <Space style={{width:"100%",height:"300px", display:"flex",alignItems:"center",justifyContent:"center"}} size="middle">
+              <Spin size="large" />
+            </Space>
+          ) : (
+            test.map((item, index) => {
+              return (
+                <React.Fragment key={item.id}>
+                  <h4>
+                    {index + 1}. {item.question}
+                  </h4>
+                  <img
+                    style={{ margin: "30px 0" }}
+                    src={item.question_image_url}
+                    alt=""
+                    width={200}
+                  />
+                  {item.options.map((item2) => {
+                    return (
+                      <Form.Item
+                        key={item2.id}
+                        style={{
+                          maxWidth: 500,
+                          margin: "10px auto",
+                          display: "flex",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                        name={item2.id}
+                      >
+                        <Form.Item name={item.id}>
+                          <Radio.Group>
+                            <Radio.Button
+                              style={{ minWidth: "150px", textAlign: "center" }}
+                              value={item2.title}
+                            >
+                              {item2.title}
+                            </Radio.Button>
+                          </Radio.Group>
+                        </Form.Item>
                       </Form.Item>
-                    </Form.Item>
-                  );
-                })}
-              </React.Fragment>
-            );
-          })}
-
-          <Button type="primary" htmlType="submit">
-            Send
-          </Button>
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })
+          )}
+          {load ? null : (
+            <Button type="primary" htmlType="submit">
+              Send
+            </Button>
+          )}
         </Form>
       ) : (
         <div

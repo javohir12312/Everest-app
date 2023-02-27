@@ -16,7 +16,7 @@ import Main from "./components/AdminPanel/Main/Main";
 import Render from "./components/AdminPanel/Render/Render";
 import Users from "./components/AdminPanel/Users/Users";
 import Default from "./components/Default/Default";
-import Teacher from "./components/Teacher/Teacher";
+// import Teacher from "./components/Teacher/Teacher";
 import axios from "./server/api/index";
 import { useCallback } from "react";
 import Titul from "./components/Titul/Titul";
@@ -48,16 +48,17 @@ const App = React.memo(() => {
           style={{ background: "#2B373B" }}
           buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
           expires={150}
+          
           onAccept={() => {
             document.cookie = true;
           }}
-        ></CookieConsent>
+        >Test ishlash uchun bunga ruxsat berishingiz zarur</CookieConsent>
         <Routes></Routes>
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index element={<Default />} />
             <Route path="test" element={<Test />} />
-            <Route path="teacher" element={<Teacher />} />
+            {/* <Route path="teacher" element={<Teacher />} /> */}
             <Route path="titul" element={<Titul />} />
             <Route path={"about"} element={<About />} />
           </Route>
