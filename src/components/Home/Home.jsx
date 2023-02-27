@@ -1,8 +1,11 @@
-import { Menu } from "antd";
+import { render } from "@testing-library/react";
+import { Button, Menu } from "antd";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./Home.scss";
 
 const Home = () => {
+  const [ad, setAd] = useState("");
   function Ham() {
     const hamburger = document.querySelector(".ham");
 
@@ -11,6 +14,11 @@ const Home = () => {
     } else {
       hamburger.style.top = "-100%";
     }
+  }
+
+  function Render() {
+    localStorage.clear();
+    setAd("a");
   }
 
   return (
@@ -52,6 +60,11 @@ const Home = () => {
                   Testga kirish
                 </Link>
               </li>
+              {localStorage.getItem("user") ? (
+                <li>
+                  <Button onClick={Render}>chiqish</Button>
+                </li>
+              ) : null}
             </ul>
 
             <div onClick={Ham} className="hamburger">
@@ -99,7 +112,9 @@ const Home = () => {
         <Outlet></Outlet>
       </main>
       <footer>
-        <a style={{color:"white"}} href="https://t.me/micromania_team">Micromania</a>
+        <a style={{ color: "white" }} href="https://t.me/micromania_team">
+          Micromania
+        </a>
       </footer>
     </>
   );

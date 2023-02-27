@@ -24,10 +24,7 @@ const Login = () => {
         "token",
         JSON.stringify(values.data.token_response.refresh_token)
       );
-      localStorage.setItem(
-        "user",
-        JSON.stringify(values.data.user)
-      );
+      localStorage.setItem("user", JSON.stringify(values.data.user));
     } catch (error) {
       setAlert(true);
       console.log(error);
@@ -67,7 +64,7 @@ const Login = () => {
           className="login-form"
           onFinish={onFinish}
         >
-          <h2>Akauntga Kirish</h2>
+          <h2>Kirish</h2>
           <Form.Item
             name="email"
             rules={[
