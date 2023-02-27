@@ -182,7 +182,7 @@ const Test = React.memo(() => {
                 <h4>
                   {index + 1}. {item.question}
                 </h4>
-                <img src={`mirasildev.uz/swagger/index.html/media${item.question_image_url}`} alt="" />
+                <img style={{margin:"30px 0"}} src={item.question_image_url} alt="" width={200}/>
                 {item.options.map((item2) => {
                   return (
                     <Form.Item
