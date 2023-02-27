@@ -11,12 +11,7 @@ const Verify = React.memo(() => {
   const onFinish = async (e) => {
     try {
       const resp = await axios.post("/auth/verify", e);
-
-      localStorage.setItem("token", JSON.stringify(resp.data.access_token));
-
-      setTimeout(() => {
-        navigate("/test");
-      }, 500);
+        navigate("/login");
     } catch (error) {
       console.log(error);
     }

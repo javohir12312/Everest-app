@@ -1,53 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import axios from "../../server/api/index";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
-const Register = () => {
+const Register = React.memo(() => {
   const [btnL, srtBtnL] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const [messageApi, contextHolder] = message.useMessage();
 
+  const openErrorMessage = (content) => {
+    messageApi.open({ type: "error", content });
+  };
+
   const error1 = () => {
-    messageApi.open({
-      type: "error",
-      content: "Bu email ro'yxatda bor yoki hato email",
-    });
+    openErrorMessage("Bu email ro'yxatda bor yoki hato email");
   };
 
   const error2 = () => {
-    messageApi.open({
-      type: "error",
-      content: "Kodingizda son va harf bo'lishi shart",
-    });
+    openErrorMessage("Kodingizda son va harf bo'lishi shart");
   };
 
   const error3 = () => {
-    messageApi.open({
-      type: "error",
-
-      content: "Telefon raqam formati xato",
-    });
+    openErrorMessage("Telefon raqam formati xato");
   };
 
-  const onFinish = async (e) => {
+  const { TextArea } = Input;
+
+  const onFinish = async (values) => {
     try {
-      const resp = await axios.post("/auth/register", e);
       srtBtnL(true);
-      setTimeout(() => {
-        navigate("/verify");
-      }, 500);
+      const resp = await axios.post("/auth/register", values);
+      navigate("/verify");
     } catch (error) {
       console.log(error);
     }
   };
-
-  setTimeout(() => {
-    setLoading(false);
-  }, 200);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
@@ -133,6 +129,6 @@ const Register = () => {
       )}
     </div>
   );
-};
+});
 
 export default Register;
