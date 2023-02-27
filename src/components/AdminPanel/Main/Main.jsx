@@ -1,6 +1,6 @@
-import { Button, Form, Select, Empty, Skeleton, Modal, Input } from "antd";
+import { Button, Form, Select, Empty, Skeleton, Modal } from "antd";
 import React, { useCallback, useEffect } from "react";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import axios from "../../../server/api/index";
 
@@ -229,8 +229,9 @@ const Main = () => {
                 <div>
                   <Button
                     type="primary"
-                    danger
-                    ghost
+                    style={{
+                      backgroundColor: "#28156E",
+                    }}
                     onClick={showDelList}
                     icon={<DeleteOutlined />}
                   />
@@ -305,7 +306,7 @@ const Main = () => {
                 <strong>To'g'ri javob</strong>
               </li>
               <li style={{ width: "10.5%", fontSize: 22 }}>
-                <strong>Boshqalar</strong>
+                <strong>O'chirish</strong>
               </li>
             </ul>
             <div>
@@ -354,28 +355,13 @@ const Main = () => {
                       <li style={{ width: "10.5%", fontSize: 18 }}>
                         {el.answer_option}
                       </li>
-                      <li
-                        style={{
-                          width: "10.5%",
-                          fontSize: 18,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 20,
-                        }}
-                      >
-                        {/* <Button
-                          onClick={() => showEdit(el.id)}
-                          type="primary"
-                          ghost
-                          icon={<EditOutlined />}
-                        ></Button> */}
-                        <Button
+                      <li style={{ width: "10.5%", fontSize: 18 }}>
+                        <span
+                          style={{ cursor: "pointer" }}
                           onClick={() => showModal(el.id)}
-                          type="primary"
-                          icon={<DeleteOutlined />}
-                          danger
-                          ghost
-                        ></Button>
+                        >
+                          <DeleteOutlined />
+                        </span>
                       </li>
                     </ul>
                   );

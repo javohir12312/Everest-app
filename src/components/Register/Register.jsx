@@ -28,6 +28,7 @@ const Register = () => {
   const error3 = () => {
     messageApi.open({
       type: "error",
+
       content: "Telefon raqam formati xato",
     });
   };
@@ -73,7 +74,7 @@ const Register = () => {
           {contextHolder}
           <div style={{ maxWidth: 1200, width: "100%" }} className="login-box">
             <div className="illustration-wrapper">
-              <img src="../assets/images/amdin-logo.avif" alt="Login" />
+              <img src="../assets/images/register.avif" alt="Login" />
             </div>
             <Form
               name="login-form"
@@ -129,7 +130,7 @@ const Register = () => {
                   },
                 ]}
               >
-                <Input type="number" placeholder="Telfon raqamingiz" />
+                <Input placeholder="Telfon raqamingiz" />
               </Form.Item>
               <Link to={"/login"}>Menda akaunt bor</Link>
 

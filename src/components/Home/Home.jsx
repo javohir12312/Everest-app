@@ -1,7 +1,6 @@
 import { Menu } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import "./Home.scss";
-// import logo from ;
 
 const Home = () => {
   return (
@@ -20,6 +19,10 @@ const Home = () => {
               <Link className="logo" to={""}>
                 <img style={{background:'white',borderRadius:"100%"}} src={"../assets/images/logo.png"} alt="" width={100}/>
               </Link>
+            </div>
+            <div style={{display: "flex", alignItems: "center", gap: 20,}}>
+              <Link style={{color: "white"}} to={'teacher'}>Ustoz haqida</Link>
+              <Link style={{color: "white"}} to={'about'}>Biz haqimizda</Link>
             </div>
             <ul style={{ display: "flex", alignItems: "center", gap: 40 }}>
               <li>

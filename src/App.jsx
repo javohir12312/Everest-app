@@ -22,8 +22,9 @@ import { useCallback } from "react";
 import Titul from "./components/Titul/Titul";
 import { CookiesProvider } from "react-cookie";
 import CookieConsent from "react-cookie-consent/dist";
+import About from "./components/About/About";
 import { Provider } from "react-redux";
-import store from "./redux";
+import store from "./store";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
@@ -35,11 +36,11 @@ const App = React.memo(() => {
 
   useEffect(() => {
     getCategories();
-  }, [getCategories, categories]);
+  }, []);
 
   return (
-     <Provider store={store}>
-       <CookiesProvider>
+    <Provider store={store}>
+      <CookiesProvider>
         <CookieConsent
           location="bottom"
           buttonText="Ruxsat"
@@ -57,7 +58,8 @@ const App = React.memo(() => {
             <Route index element={<Default />} />
             <Route path="test" element={<Test />} />
             <Route path="teacher" element={<Teacher />} />
-            <Route path="/titul" element={<Titul />} />
+            <Route path="titul" element={<Titul />} />
+            <Route path={"about"} element={<About />} />
           </Route>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
@@ -83,7 +85,7 @@ const App = React.memo(() => {
           <Route path="/verify" element={<Verify />} />
         </Routes>
       </CookiesProvider>
-     </Provider>
+    </Provider>
   );
 });
 
