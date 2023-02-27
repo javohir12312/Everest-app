@@ -104,6 +104,16 @@ const Home = () => {
                   </Link>
                 </li>
               </ul>
+              {localStorage.getItem("user") ? (
+                <li>
+                  <Button
+                    style={{ margin: "10px auto", display: "block" }}
+                    onClick={Render}
+                  >
+                    chiqish
+                  </Button>
+                </li>
+              ) : null}
             </div>
           </div>
         </Menu>
@@ -112,8 +122,9 @@ const Home = () => {
         <Outlet></Outlet>
       </main>
       <footer>
+        Powered by {" "}
         <a style={{ color: "white" }} href="https://t.me/micromania_team">
-          Micromania
+           Micromania
         </a>
       </footer>
     </>

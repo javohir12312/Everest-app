@@ -92,11 +92,11 @@ const Login = () => {
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              placeholder="Password"
+              placeholder="Parol"
             />
           </Form.Item>
           <Link to="/forgot-pass" className="login-form-forgot" href="">
-            Forgot password
+            Parolni unutdim
           </Link>
 
           <Form.Item>

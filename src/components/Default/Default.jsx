@@ -15,13 +15,12 @@ const Default = () => {
         </p>
         <Link
           to={localStorage.getItem("token") ? "test" : "/login"}
-          className="link"
-        >
+          className="link">
           Testni boshlash
         </Link>
-        <Link to={"teacher"} className="linkTwo">
+        {/* <Link to={"teacher"} className="linkTwo">
           Ustoz haqida ma'lumot
-        </Link>
+        </Link> */}
       </div>
       <img
         className="default__image"
