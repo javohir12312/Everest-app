@@ -33,15 +33,19 @@ const Register = React.memo(() => {
     try {
       srtBtnL(true);
       const resp = await axios.post("/auth/register", values);
+      console.log(values);
       navigate("/verify");
     } catch (error) {
-      console.log(error);
+      if(error.response.data.error == "email already exists"){
+        alert("Bu email ro'yxatda bor")
+      }else{ console.log(error);}
+
     }
   };
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 200);
+    }, 400);
     return () => clearTimeout(timer);
   }, []);
 
@@ -120,7 +124,7 @@ const Register = React.memo(() => {
                   htmlType="submit"
                   className="login-form-button"
                 >
-                  {btnL ? "loading..." : "Ro'yxatdan o'tish"}
+                 Ro'yxatdan o'tish
                 </Button>
               </Form.Item>
             </Form>

@@ -8,8 +8,9 @@ const NewPass = () => {
   const onFinish = async (e) => {
     try {
       await axios.post("/auth/update-password", e);
+      localStorage.clear()
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 1000);
     } catch (error) {
       console.log(error);
