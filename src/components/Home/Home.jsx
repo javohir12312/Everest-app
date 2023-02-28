@@ -1,10 +1,11 @@
 import { Button, Menu } from "antd";
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./Home.scss";
 
 const Home = () => {
   const [ad, setAd] = useState("");
+  const navigate = useNavigate();
   function Ham() {
     const hamburger = document.querySelector(".ham");
 
@@ -18,6 +19,7 @@ const Home = () => {
   function Render() {
     localStorage.clear();
     setAd("a");
+    navigate("/");
   }
 
   return (
@@ -46,7 +48,7 @@ const Home = () => {
               {/* <Link style={{ color: "white" }} to={"teacher"}>
                 Ustoz haqida
               </Link> */}
-              <Link style={{ color: "white", fontSize:"20px" }} to={"about"}>
+              <Link style={{ color: "white", fontSize: "20px" }} to={"about"}>
                 Biz haqimizda !
               </Link>
             </div>
@@ -121,9 +123,9 @@ const Home = () => {
         <Outlet></Outlet>
       </main>
       <footer>
-        Powered by {" "}
+        Powered by{" "}
         <a style={{ color: "white" }} href="https://t.me/micromania_team">
-           Micromania
+          Micromania
         </a>
       </footer>
     </>
