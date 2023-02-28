@@ -227,7 +227,7 @@ const Test = React.memo(() => {
                         <Form.Item name={item.id}>
                           <Radio.Group>
                             <Radio.Button
-                              style={{ minWidth: "100%", textAlign: "center",height:"auto" }}
+                              style={{ minWidth: "150px", textAlign: "center",height:"auto" }}
                               value={item2.title}
                             >
                               {item2.title}

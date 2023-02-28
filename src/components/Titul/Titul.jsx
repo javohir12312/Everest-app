@@ -1,7 +1,6 @@
 import React from "react";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
 import { useSelector } from "react-redux";
-import { addData } from "../../slice";
 import "../Titul/Titul.scss";
 
 const Titul = () => {
@@ -14,7 +13,6 @@ const Titul = () => {
   // console.log(isTrue);
   const count = answers.filter((item) => item.is_true).length;
 
-  console.log(answers);
   return (
     <div>
       <h5 className="title">

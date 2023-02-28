@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import { Button, Menu } from "antd";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
