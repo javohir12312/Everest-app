@@ -277,7 +277,7 @@ const Render = ({ elTitle }) => {
                 borderRadius: "10px",
               }}
             >
-              <h3 style={{ marginTop: 0, fontSize: 20 }}>Savol qo'shish</h3>
+              <h3 style={{ marginTop: 0, fontSize: 20 }}>Test qo'shish</h3>
               <Form
                 style={{ width: 800 }}
                 onFinish={(evt) => onSubmitQuation(evt, id)}

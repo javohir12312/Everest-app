@@ -9,9 +9,7 @@ const Default = () => {
       <div className="default__cotent">
         <h2 className="default__title">Tezlikda ishlang va fikrlang</h2>
         <p className="default__text">
-          Asboblar, o'quv qo'llanmalari, dizayn va innovatsiyalar bo'yicha
-          mutaxassislar hammasi bir joyda! Keyingi foydalanuvchi tajribangizni
-          tasavvur qilishning eng intuitiv usuli.
+          Test davomida turli elektron hisoblash vositalari va shpargalkalardan foydalanish taqiqlanadi. 
         </p>
         <Link
           to={localStorage.getItem("token") ? "test" : "/login"}

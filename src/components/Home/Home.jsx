@@ -47,8 +47,8 @@ const Home = () => {
               {/* <Link style={{ color: "white" }} to={"teacher"}>
                 Ustoz haqida
               </Link> */}
-              <Link style={{ color: "white" }} to={"about"}>
-                Biz haqimizda
+              <Link style={{ color: "white", fontSize:"20px" }} to={"about"}>
+                Biz haqimizda !
               </Link>
             </div>
             <ul className="box123">
