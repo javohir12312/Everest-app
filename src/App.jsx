@@ -25,6 +25,7 @@ import CookieConsent from "react-cookie-consent/dist";
 import About from "./components/About/About";
 import { Provider } from "react-redux";
 import store from "./store";
+import NotFound from "./components/NotFound/NotFound";
 
 const App = React.memo(() => {
   const [categories, setCategories] = useState([]);
@@ -48,13 +49,15 @@ const App = React.memo(() => {
           style={{ background: "#2B373B" }}
           buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
           expires={150}
-          
           onAccept={() => {
             document.cookie = true;
           }}
-        >Test ishlash uchun bunga ruxsat berishingiz zarur</CookieConsent>
+        >
+          Test ishlash uchun bunga ruxsat berishingiz zarur
+        </CookieConsent>
         <Routes></Routes>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />}>
             <Route index element={<Default />} />
             <Route path="test" element={<Test />} />

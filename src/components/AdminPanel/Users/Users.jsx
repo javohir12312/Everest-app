@@ -31,7 +31,7 @@ const Users = React.memo(() => {
     } catch (error) {
       console.log(error);
     }
-    getUsers()
+    getUsers();
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,14 +102,14 @@ const Users = React.memo(() => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((el) => {
+                {users.map((el, index) => {
                   if (el.type === "admin") {
                     return null;
                   } else {
                     return (
                       <tr key={el.id} id={el.id}>
                         <th style={{ fontSize: 17 }} scope="row">
-                          {el.id}
+                          <span style={{color:"gray"}}>{index + 1 + ")"}</span> {el.id}
                         </th>
                         <td style={{ fontSize: 18 }}>{el.first_name}</td>
                         <td style={{ fontSize: 18 }}>{el.last_name}</td>
