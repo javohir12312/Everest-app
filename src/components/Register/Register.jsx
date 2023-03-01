@@ -38,7 +38,7 @@ const Register = React.memo(() => {
     } catch (error) {
       if(error.response.data.error == "email already exists"){
         alert("Bu email ro'yxatda bor")
-      }else{ console.log(error);}
+      }else{ console.log(error)}
 
     }
   };
@@ -65,7 +65,7 @@ const Register = React.memo(() => {
               initialValues={{ remember: true }}
               onFinish={onFinish}
             >
-              <h1 className="form-title">Hush kelibsiz</h1>
+              <h1 className="form-title">Xush kelibsiz</h1>
               <Form.Item
                 name="email"
                 type="email"
@@ -114,9 +114,9 @@ const Register = React.memo(() => {
                   },
                 ]}
               >
-                <Input placeholder="Telfon raqamingiz" />
+                <Input placeholder="Telefon raqamingiz" />
               </Form.Item>
-              <Link to={"/login"}>Menda akaunt bor</Link>
+              <Link to={"/login"}>Menda Account bor</Link>
 
               <Form.Item>
                 <Button

@@ -37,7 +37,7 @@ const App = React.memo(() => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [categories]);
 
   return (
     <Provider store={store}>
