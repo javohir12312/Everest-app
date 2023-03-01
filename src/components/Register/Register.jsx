@@ -102,7 +102,7 @@ const Register = React.memo(() => {
                   { required: true, message: "Iltimos Parolingizni kiriting" },
                 ]}
               >
-                <Input.Password placeholder="kodingizda katta harf va son bo'lishi kerak" />
+                <Input.Password placeholder="Parolingizda katta harf va son bo'lishi kerak" />
               </Form.Item>
 
               <Form.Item
